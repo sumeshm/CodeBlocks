@@ -1,4 +1,4 @@
-package learn.menu;
+package learn.common;
 
 import java.util.Scanner;
 import java.util.Vector;
@@ -7,9 +7,9 @@ public class Menu {
 
 	private Vector<String> data;
 	private String title;
-	private Scanner scanner = null;
+	private Scanner scanner;
 	
-	public Menu(Vector<String> data, String title)
+	public Menu(Vector<String> data, String title, IHandler handler)
 	{
 		this.data = data;
 		this.title = title;
@@ -30,6 +30,7 @@ public class Menu {
 	}
 
 	protected void printOptions() {
+		System.out.println();
 		System.out.println("-----------------------------------------------------------");
 		System.out.println(" " + title + " : choose an index");
 		System.out.println("-----------------------------------------------------------");
@@ -38,6 +39,9 @@ public class Menu {
 			System.out.println(" " + index + ". " + option);
 			index++;
 		}
+		System.out.println();
+		System.out.println(" b. BACK");
+		System.out.println(" q. QUIT");
 		System.out.println("-----------------------------------------------------------");
 		System.out.println();
 	}

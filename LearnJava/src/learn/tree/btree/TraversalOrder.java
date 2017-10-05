@@ -1,0 +1,9 @@
+package learn.tree.btree;
+
+public enum TraversalOrder {
+	TRAVERSE_IN_ORDER,
+	TRAVERSE_PRE_ORDER,
+	TRAVERSE_POST_ORDER,
+	TRAVERSE_LEVEL_ORDER,
+	TRAVERSE_LEFT_VIEW
+}

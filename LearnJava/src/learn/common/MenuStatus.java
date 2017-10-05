@@ -1,4 +1,4 @@
-package learn.menu;
+package learn.common;
 
 public enum MenuStatus {
 	RET_VAL_INVLID (4001),
