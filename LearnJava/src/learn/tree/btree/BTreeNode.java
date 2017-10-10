@@ -1,6 +1,8 @@
 package learn.tree.btree;
 
+import java.util.Queue;
 import java.util.Stack;
+import java.util.Vector;
 
 public class BTreeNode {
 
@@ -31,6 +33,7 @@ public class BTreeNode {
 	}
 
 	public void setData(Integer data) {
+		System.out.println(".....:" + data);
 		this.data = data;
 	}
 
@@ -101,7 +104,27 @@ public class BTreeNode {
 		return searchInternal(this, data);
 	}
 
+	public void delete(Integer data) {
+		System.out.println("\n DELETE TREE: ");
+		deleteInternal(search(data));
+	}
 
+
+	public Vector<BTreeNode> getHeap()
+	{
+		int index = 0;
+		Vector<BTreeNode> heap = new Vector<BTreeNode>();
+		heap.add(this);
+
+		while (heap.get(index) != null)
+		{
+			heap.add(heap.get(index).getLeft());
+			heap.add(heap.get(index).getRight());
+			index++;
+		}
+		
+		return heap;
+	}
 
 	protected void addNodeRecursive(BTreeNode currentNode, BTreeNode newNode)
 	{
@@ -134,12 +157,13 @@ public class BTreeNode {
 
 	protected void printInOrder(BTreeNode head)
 	{
-		System.out.println("<> data: " + head.getData());
-
 		if (head.getLeft() != null)
 		{
 			printInOrder(head.getLeft());
 		}
+		
+		System.out.println("<> data: " + head.getData());
+
 		if (head.getRight() != null)
 		{
 			printInOrder(head.getRight());
@@ -148,27 +172,27 @@ public class BTreeNode {
 
 	protected void printPreOrder(BTreeNode head)
 	{
-		if (head.getRight() != null)
-		{
-			printInOrder(head.getRight());
-		}
+		System.out.println("<> data: " + head.getData());
+
 		if (head.getLeft() != null)
 		{
-			printInOrder(head.getLeft());
+			printPreOrder(head.getLeft());
 		}
-
-		System.out.println("<> data: " + head.getData());
+		if (head.getRight() != null)
+		{
+			printPreOrder(head.getRight());
+		}
 	}
 
 	protected void printPostOrder(BTreeNode head)
 	{
 		if (head.getLeft() != null)
 		{
-			printInOrder(head.getLeft());
+			printPostOrder(head.getLeft());
 		}
 		if (head.getRight() != null)
 		{
-			printInOrder(head.getRight());
+			printPostOrder(head.getRight());
 		}
 
 		System.out.println("<> data: " + head.getData());
@@ -176,32 +200,22 @@ public class BTreeNode {
 	
 	protected void printLevelOrder()
 	{
-		Stack<BTreeNode> stack = new Stack<BTreeNode>();
-		System.out.println("\n TRAVERSE_LEVEL_ORDER: ");
+		Vector<BTreeNode> heap = getHeap();
+		System.out.println("\n TRAVERSE_LEVEL_ORDER: " + heap.size());
 		System.out.print("<> data: ");
-		if (this.data != null)
+
+		for (BTreeNode node : heap)
 		{
-			stack.add(this);
-		}
-		
-		while (!stack.isEmpty())
-		{
-			BTreeNode node = stack.pop();
-			System.out.print(" " + node.getData());
-			if (node.getLeft() != null)
+			if (node != null)
 			{
-				stack.push(node.getLeft());
-			}
-			if (node.getRight() != null)
-			{
-				stack.push(node.getRight());
+				System.out.print(" " + node.getData());
 			}
 		}
 		
 		System.out.println();
 	}
 
-	public BTreeNode searchInternal(BTreeNode current, Integer data) {
+	protected BTreeNode searchInternal(BTreeNode current, Integer data) {
 		if (current != null)
 		{
 			if (current.data.equals(data))
@@ -221,5 +235,36 @@ public class BTreeNode {
 		
 		System.out.println("<> NOT found: " + data);
 		return null;
+	}
+	
+	protected void deleteInternal(BTreeNode current)
+	{
+	}
+
+	protected void removeLeastNode(Vector<BTreeNode> heap, int index) {
+		
+		if (!heap.isEmpty())
+		{
+			BTreeNode node = heap.get(index);
+			if (node.isLeaf())
+			{
+				return;
+			}
+
+			if (node.getLeft() != null)
+			{
+				heap.add(node.getLeft());
+				removeLeastNode(heap, index++);
+				return;
+			}
+			else if (node.getRight() != null)
+			{
+				heap.add(node.getRight());
+				removeLeastNode(heap, index++);
+				return;
+			}
+		}		
+		
+		System.out.println("<> NOT found: " + data);
 	}
 }

@@ -65,16 +65,12 @@ public class TreeHandler implements IHandler {
 		}
 		case 4:
 		{
-			System.out.println(">>>>>>>>>>>> Enter the serach string: \n");
-			scanner = new Scanner(System.in);
-			String strInput = scanner.nextLine().trim();
-			
-			try {
-				bTreeHead.search(new Integer(strInput));
-			} catch (NumberFormatException e) {
-				System.err.println("\n INVALID INPUT: try again \n");
-			}
-			
+			bTreeHead.search(readSingleInput("search"));
+			break;
+		}
+		case 5:
+		{
+			bTreeHead.search(readSingleInput("delete"));
 			break;
 		}
 		}
@@ -100,5 +96,19 @@ public class TreeHandler implements IHandler {
 		}
 	}
 
-
+	protected Integer readSingleInput(String title)
+	{
+		Integer retVal = null;
+		System.out.println(">>>>>>>>>>>> Enter the '" + title + "' string: \n");
+		scanner = new Scanner(System.in);
+		String strInput = scanner.nextLine().trim();
+		
+		try {
+			retVal = new Integer(strInput);
+		} catch (NumberFormatException e) {
+			System.err.println("\n INVALID INPUT: try again \n");
+		}
+		
+		return retVal;
+	}
 }
