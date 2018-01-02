@@ -16,14 +16,10 @@ public class CarFactoryServiceImpl implements ICarFactoryService
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<CarPojo> getCarList()
 	{
-		List<CarPojo> listPerson = new ArrayList<>();
+		List<CarPojo> carList = new ArrayList<>();
+		carList.add(new CarPojo(1, "Kwid"));
+		carList.add(new CarPojo(1, "Duster"));
 		
-		CarPojo kwid = new CarPojo(1, "Fluence");
-		listPerson.add(kwid);
-		
-		CarPojo duster = new CarPojo(1, "Duster");
-		listPerson.add(duster);
-		
-		return listPerson;
+		return carList;
 	}
 }
