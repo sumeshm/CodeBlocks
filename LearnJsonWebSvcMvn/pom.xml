@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.viralpatel.spring</groupId>
-	<artifactId>LearnJsonWebServicesMaven</artifactId>
+	<artifactId>LearnJsonWebSvcMvn</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring 4 Rest Service CRUD Example</name>
@@ -34,7 +34,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>LearnJsonWebServicesMaven</finalName>
+		<finalName>LearnJsonWebSvcMvn</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -44,7 +44,7 @@
 					<configuration>
 						<server>TomcatServer</server>
 						<url>http://localhost:8080/manager/text</url>
-						<path>/LearnJsonWebServicesMaven</path>
+						<path>/LearnJsonWebSvcMvn</path>
 	                     <username>admin</username>
 	                     <password>admin</password>
 					</configuration>					

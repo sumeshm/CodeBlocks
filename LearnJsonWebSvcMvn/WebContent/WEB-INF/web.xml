@@ -28,6 +28,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   </servlet-mapping>
   
   <!--
-  http://localhost:8080/LearnJsonWebServicesMaven/carfactory/cars 
+  http://localhost:8080/LearnJsonWebSvcMvn/carfactory/cars 
    -->
 </web-app>
