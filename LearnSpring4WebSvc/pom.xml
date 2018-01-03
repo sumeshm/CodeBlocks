@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.learn.spring4</groupId>
-	<artifactId>LearnSpring4RestService</artifactId>
+	<artifactId>LearnSpring4RestSvc</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>LearnSpring4RestService Maven Webapp</name>
+	<name>LearnSpring4RestSvc Maven Webapp</name>
 
 	<properties>
 		<springframework.version>4.3.0.RELEASE</springframework.version>
@@ -44,6 +44,13 @@
 		</dependency>
 		<!-- dependency> <groupId>com.fasterxml.jackson.dataformat</groupId> <artifactId>jackson-dataformat-xml</artifactId> 
 			<version>${jackson.library}</version> </dependency -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -64,13 +71,13 @@
 					<version>2.4</version>
 					<configuration>
 						<warSourceDirectory>src/main/webapp</warSourceDirectory>
-						<warName>LearnSpring4RestService</warName>
+						<warName>LearnSpring4RestSvc</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 
-		<finalName>LearnSpring4RestService</finalName>
+		<finalName>LearnSpring4RestSvc</finalName>
 	</build>
 </project>

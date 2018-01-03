@@ -1,8 +1,9 @@
 package com.learn.spring4.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +22,28 @@ import com.learn.spring4.service.CarPojo;
 @RestController
 public class ServletController {
 
-	// http://localhost:8080/LearnSpring4RestService/cars/
+	// http://localhost:8080/LearnSpring4RestSvc/cars/
+	
+	private Logger logger = Logger.getLogger(ServletController.class);
 
 	@Autowired
 	private CarDAO carDao;
 
 	@RequestMapping("/cars")
 	public List<CarPojo> getCars() {
+		logger.info("sumesh: Get the list of cars");
 		return carDao.getList();
 	}
 
 	@GetMapping("/cars/{name}")
 	public CarPojo getCar(@PathVariable String name) {
-		return carDao.get(name);
+		CarPojo car = carDao.get(name);
+		if (car != null)
+		{
+			return car;
+		}
+
+		return (new CarPojo());
 	}
 
 	@PostMapping(path = "/cars", consumes = "application/json")
@@ -45,7 +55,7 @@ public class ServletController {
 	public ResponseEntity<CarPojo> updateCar(@PathVariable String name, @RequestBody CarPojo car) {
 		
 		CarPojo updatedCar = carDao.update(name, car);
-		if (updatedCar == null)
+		if (updatedCar != null)
 		{
 			return new ResponseEntity<CarPojo>(updatedCar, HttpStatus.OK);
 		}
