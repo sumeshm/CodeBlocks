@@ -1,0 +1,4 @@
+mvn clean install
+mvn exec:java -Dexec.mainClass="learn.MenuManager"  [-Dexec.args="argument1"] ...
+
+java -jar target/LearnJava-0.0.1-SNAPSHOT.jar learn.MenuManager

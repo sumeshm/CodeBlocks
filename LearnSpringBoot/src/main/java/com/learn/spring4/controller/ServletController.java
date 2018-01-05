@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.learn.spring4.dao.CarDAO;
 import com.learn.spring4.service.CarPojo;
 
-//@Controller
 @RestController
 @RequestMapping("/LearnSpringBoot")
 public class ServletController {
@@ -31,7 +30,7 @@ public class ServletController {
 	@Autowired
 	private CarDAO carDao;
 
-	@RequestMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/cars", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
 	public List<CarPojo> getCars() {
 		logger.info("sumesh: Get the list of cars");
 		return carDao.getList();

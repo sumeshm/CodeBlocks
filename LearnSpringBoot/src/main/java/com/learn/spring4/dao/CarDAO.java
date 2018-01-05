@@ -12,15 +12,6 @@ public class CarDAO {
 
 	private static List<CarPojo> carList = new ArrayList<>();
 	
-	// dummy database for new
-	static
-	{
-		carList = new ArrayList<>();
-//		carList.add(new CarPojo(1, "Kwid"));
-//		carList.add(new CarPojo(1, "Duster"));
-//		carList.add(new CarPojo(1, "Fluence"));
-	}
-
 	/**
 	 * Returns list of cars from database.
 	 * 
