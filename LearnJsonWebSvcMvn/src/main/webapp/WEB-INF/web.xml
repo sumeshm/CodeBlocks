@@ -29,5 +29,5 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- http://localhost:8080/LearnJsonWebSvcMvn/carfactory/cars -->
+	<!-- http://localhost:8080/LearnJsonWebSvc/carfactory/cars -->
 </web-app>
