@@ -8,6 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+
+// http://localhost:8080/LearnJsonWebSvcMvn/carfactory/cars
+
 @Path("/carfactory")
 public class CarFactoryServiceImpl implements ICarFactoryService
 {
