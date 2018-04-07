@@ -67,6 +67,14 @@ public class SortHandler implements IHandler {
 			printData(mergeSort.sortAscendingOrder(dataToSort), "After Merge Sroting:");
 			break;
 		}
+		case 3:
+		{
+			out.println("\n QUICK SORT:");
+			QuickSort quickSort = new QuickSort();
+			quickSort.sortAscendingOrder(dataToSort);
+			printData(dataToSort, "After Quick Sroting:");
+			break;
+		}
 		
 		}
 		

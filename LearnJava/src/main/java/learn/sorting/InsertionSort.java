@@ -3,7 +3,7 @@ package learn.sorting;
 import java.util.Vector;
 
 public class InsertionSort {
-	
+
 	public void printSteps()
 	{
 		System.out.println();
@@ -20,49 +20,20 @@ public class InsertionSort {
 	{
 		printSteps();
 		
-		for (int index = 1; index < data.size(); index++)
+		for (int uIndex = 1; uIndex < data.size(); uIndex++)
 		{
-			moveToSorted(data, index);
-		}		
-	}
-	
-	public void moveToSorted(Vector<Integer> data, int indexToMove)
-	{
-		for (int i = indexToMove; i > 0; i--)
-		{
-			if (data.get(indexToMove) < data.get(indexToMove - 1))
+			// scan unsorted
+			for (int sIndex = 0; sIndex < uIndex; sIndex++)
 			{
-				swapItems(data, indexToMove - 1, indexToMove);
+				// scan sorted
+				if (data.get(sIndex) > data.get(uIndex))
+				{
+					// compare and swap
+					int temp = data.get(sIndex);
+					data.set(sIndex, data.get(uIndex));
+					data.set(uIndex, temp);
+				}
 			}
 		}
-	}
-
-	protected boolean swapItems(Vector<Integer> data, int indexA, int indexB)
-	{
-		if (indexA < 0 || indexA >= data.size() || indexB < 0 || indexB >= data.size() || indexA == indexB)
-		{
-			return false;
-		}
-		
-		int temp = data.get(indexA);
-		data.set(indexA, data.get(indexB));
-		data.set(indexB, temp);
-		
-		return true;
-	}
-
-	protected int getMinimimIndex(Vector<Integer> data, int startIndex)
-	{
-		int retVal = startIndex;
-		for (int index = startIndex; index < data.size(); index++)
-		{
-			if (data.get(index) < data.get(retVal))
-			{
-				retVal = index;
-			}
-		}
-		
-		return retVal;
-	}
-	
+	}	
 }
