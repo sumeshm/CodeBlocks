@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.spring4.dao.CarDAO;
+import com.learn.spring4.errors.DataNotFoundException;
 import com.learn.spring4.service.CarPojo;
 
 @RestController
@@ -51,7 +52,7 @@ public class ServletController {
 	}
 
 	@PutMapping(path = "/cars/{name}", consumes = "application/json")
-	public ResponseEntity<CarPojo> updateCar(@PathVariable String name, @RequestBody CarPojo car) {
+	public ResponseEntity<CarPojo> updateCar(@PathVariable String name, @RequestBody CarPojo car) throws DataNotFoundException {
 		
 		CarPojo updatedCar = carDao.update(name, car);
 		if (updatedCar != null)
@@ -59,7 +60,8 @@ public class ServletController {
 			return new ResponseEntity<CarPojo>(updatedCar, HttpStatus.OK);
 		}
 
-		return new ResponseEntity<CarPojo>(new CarPojo(), HttpStatus.NOT_FOUND);
+		//return new ResponseEntity<CarPojo>(new CarPojo(), HttpStatus.NOT_FOUND);
+		throw new DataNotFoundException("Given car name does not correspond to any data");
 	}
 
 	@DeleteMapping("/cars/{name}")
