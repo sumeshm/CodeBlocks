@@ -75,7 +75,13 @@ public class SortHandler implements IHandler {
 			printData(dataToSort, "After Quick Sroting:");
 			break;
 		}
-		
+		case 4:
+		{
+			out.println("\n HEAP SORT:");
+			HeapSort heapSort = new HeapSort();
+			heapSort.sortAscendingOrder(dataToSort);
+			printData(dataToSort, "After Heap Sroting:");
+		}
 		}
 		
 		return null;

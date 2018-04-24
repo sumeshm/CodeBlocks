@@ -61,7 +61,7 @@ public class ServletController {
 		}
 
 		//return new ResponseEntity<CarPojo>(new CarPojo(), HttpStatus.NOT_FOUND);
-		throw new DataNotFoundException("Given car name does not correspond to any data");
+		throw new DataNotFoundException("Failed to find a car with name " + name);
 	}
 
 	@DeleteMapping("/cars/{name}")
