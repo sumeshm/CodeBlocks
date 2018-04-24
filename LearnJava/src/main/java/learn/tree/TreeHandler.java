@@ -1,5 +1,7 @@
 package learn.tree;
 
+import static java.lang.System.out;
+
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -17,8 +19,6 @@ public class TreeHandler implements IHandler {
 
 	public TreeHandler()
 	{
-		createBTree();
-
 		menuData = new Vector<String>();
 		menuData.add("B-Tree: InOrder");
 		menuData.add("B-Tree: PreOrder");
@@ -41,6 +41,12 @@ public class TreeHandler implements IHandler {
 	@Override
 	public IHandler handle(int index)
 	{
+		if (createBTree() <= 0)
+		{
+			out.println(">>>>>>>>>>>> Insufficient items to sort, try again... \n");
+			return null;
+		}
+
 		switch (index)
 		{
 		case 0:
@@ -78,8 +84,9 @@ public class TreeHandler implements IHandler {
 		return null;
 	}
 	
-	protected void createBTree()
+	protected int createBTree()
 	{
+		int retVal = 0;
 		bTreeHead = new BTreeNode();
 
 		System.out.println(">>>>>>>>>>>> Lets create the tree, enter an arrya of space seperated int(s):");
@@ -91,9 +98,16 @@ public class TreeHandler implements IHandler {
 		for (String value : strInput.split(" ")) {
 			if (!value.trim().isEmpty())
 			{
-				bTreeHead.addNode(value);
+				try {
+					bTreeHead.addNode(value);
+					retVal++;
+				} catch (NumberFormatException e) {
+					//err.println("\n SKIPING INVALID ITEMS: " + value);
+				}
 			}
 		}
+
+		return retVal;
 	}
 
 	protected Integer readSingleInput(String title)

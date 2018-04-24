@@ -19,8 +19,6 @@ public class SortHandler implements IHandler {
 	
 	public SortHandler()
 	{
-		readData();
-
 		Vector<String> menuData = new Vector<String>();
 		menuData.add("Selection");
 		menuData.add("Insersion");
@@ -30,16 +28,22 @@ public class SortHandler implements IHandler {
 
 		menu = new Menu(menuData, "Sorting Menu", this);
 	}
-	
+
 	@Override
 	public Menu getMenu()
 	{
 		return menu;
 	}
-	
+
 	@Override
 	public IHandler handle(int index)
 	{
+		if (readData() <= 0)
+		{
+			out.println(">>>>>>>>>>>> Insufficient items to sort, try again... \n");
+			return null;
+		}
+
 		printData(dataToSort, "Before Sroting:");
 
 		switch (index)
@@ -86,28 +90,29 @@ public class SortHandler implements IHandler {
 		
 		return null;
 	}
-	
-	protected void readData()
+
+	protected int readData()
 	{
 		out.println(">>>>>>>>>>>> Lets create an array to sort, enter space seperated int(s):");
 		out.println(">>>>>>>>>>>> e.g. 1 2 3 4  \n");
 
-
 		scanner = new Scanner(in);
 		String strInput = scanner.nextLine().trim();
-		
+
 		dataToSort = new Vector<Integer>();
-		
+
 		for (String value : strInput.split(" ")) {
 			if (!value.trim().isEmpty())
 			{
 				try {
 					dataToSort.add(new Integer(value));
 				} catch (NumberFormatException e) {
-					err.println("\n SKIPING INVALID ITEMS: " + value);
+					//err.println("\n SKIPING INVALID ITEMS: " + value);
 				}
 			}
 		}
+
+		return dataToSort.size();
 	}
 	
 	protected void printData(Vector<Integer> dataToPrint, String msg)
