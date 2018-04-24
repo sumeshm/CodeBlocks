@@ -1,9 +1,7 @@
 package learn.sorting;
 
-import static java.lang.System.out;
-import static java.lang.System.err;
 import static java.lang.System.in;
-
+import static java.lang.System.out;
 
 import java.util.Scanner;
 import java.util.Vector;

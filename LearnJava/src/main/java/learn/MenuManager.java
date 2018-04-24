@@ -41,7 +41,7 @@ public class MenuManager {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println("Well well....here we go again...");
 		MenuManager manager = new MenuManager();
