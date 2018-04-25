@@ -7,6 +7,7 @@ import learn.common.Menu;
 import learn.search.SearchHandler;
 import learn.sorting.SortHandler;
 import learn.tree.TreeHandler;
+import learn.tree.threads.ThreadHandler;
 
 public class MainMenuHandler implements IHandler {
 
@@ -20,6 +21,7 @@ public class MainMenuHandler implements IHandler {
 		menuData.add("DS");
 		menuData.add("B-Tree");
 		menuData.add("Java Features");
+		menuData.add("Threads");
 
 		this.menu = new Menu(menuData, "Main Menu", this);
 	}
@@ -52,6 +54,11 @@ public class MainMenuHandler implements IHandler {
 		case 4:
 		{
 			printJavaFeatures();
+			break;
+		}
+		case 5:
+		{
+			handler = new ThreadHandler();
 			break;
 		}
 		}

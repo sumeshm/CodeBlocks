@@ -57,6 +57,7 @@ public class MenuManager {
 		MenuManager manager = new MenuManager();
 		manager.start();
 
-        Addable ad2=(int a,int b)->(a+b);  
+		Addable add = (int a, int b) -> (a + b);
+		int x = add.add(2,  3);
 	}
 }
