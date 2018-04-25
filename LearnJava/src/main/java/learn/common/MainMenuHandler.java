@@ -69,6 +69,7 @@ public class MainMenuHandler implements IHandler {
 		System.out.println(">> Varargs");
 		System.out.println(">> Static Import");
 		System.out.println(">> Annotations (Metadata)");
+		System.out.println(">> Covariant return types");
 		System.out.println();
 		
 		System.out.println("JAVA 8:");

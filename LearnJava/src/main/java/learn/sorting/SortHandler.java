@@ -116,10 +116,9 @@ public class SortHandler implements IHandler {
 	protected void printData(Vector<Integer> dataToPrint, String msg)
 	{
 		out.print(msg + " - [");
-		for(int current : dataToPrint)
-		{
-			out.print(current + " ");
-		}
+		dataToPrint.forEach(  
+			(current)->out.print(current + " ")				// lambda expression
+        ); 
 		out.print("]\n\n");
 	}
 }

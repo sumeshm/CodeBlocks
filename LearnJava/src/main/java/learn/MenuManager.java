@@ -8,6 +8,10 @@ import learn.common.MenuStatus;
 
 public class MenuManager {
 
+	interface Addable{  
+	    int add(int a,int b);  
+	}
+
 	private Stack<IHandler> menuStack;
 
 	public MenuManager()
@@ -46,5 +50,13 @@ public class MenuManager {
 		System.out.println("Well well....here we go again...");
 		MenuManager manager = new MenuManager();
 		manager.start();
+	}
+
+	public static void main(String[] args, String data) {
+		System.out.println("Well well....here we go again...");
+		MenuManager manager = new MenuManager();
+		manager.start();
+
+        Addable ad2=(int a,int b)->(a+b);  
 	}
 }
