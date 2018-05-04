@@ -24,6 +24,7 @@ public class SortHandler implements IHandler {
 		menuData.add("Merge");
 		menuData.add("Quick");
 		menuData.add("Heap");
+		menuData.add("Bubble");
 
 		menu = new Menu(menuData, "Sorting Menu", this);
 	}
@@ -84,6 +85,13 @@ public class SortHandler implements IHandler {
 			HeapSort heapSort = new HeapSort();
 			heapSort.sortAscendingOrder(dataToSort);
 			printData(dataToSort, "After Heap Sroting:");
+		}
+		case 5:
+		{
+			out.println("\n BUBBLE SORT:");
+			BubbleSort bubbleSort = new BubbleSort();
+			bubbleSort.sortAscendingOrder(dataToSort);
+			printData(dataToSort, "After Bubble Sroting:");
 		}
 		}
 		

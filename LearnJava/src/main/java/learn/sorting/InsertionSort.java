@@ -9,7 +9,7 @@ public class InsertionSort {
 		System.out.println();
 		System.out.println("\t - View the data as combination of sorted and unsorted");
 		System.out.println("\t - Pick first item of un-sorted part and insert it to appropriate position in sorted part");
-		System.out.println("\t - This can be done in place with swapping new item from right to left of sorted part, one place at a time");
+		System.out.println("\t - This can be done in place with swapping new item from right to left (backwards) of sorted part, one place at a time");
 		System.out.println("\t - Repeat this untill the new eleement reaches appropriate position in srorted part");
 		System.out.println("\t - The sorted list will start with one element (the first one) and grow");
 		System.out.println("\t - The un-sorted list will start shriking from front towards back");

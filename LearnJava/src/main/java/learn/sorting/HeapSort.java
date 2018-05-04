@@ -56,8 +56,8 @@ public class HeapSort {
 		{
 			return 0;
 		}
-		
-		if (index % 2 == 0)
+
+		if ((index & 1) == 0)
 		{
 			return (index - 2) / 2;
 		}
