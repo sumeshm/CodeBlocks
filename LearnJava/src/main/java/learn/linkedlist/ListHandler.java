@@ -19,6 +19,8 @@ public class ListHandler implements IHandler {
 	{
 		menuData = new Vector<String>();
 		menuData.add("Linked List: Print");
+		menuData.add("Linked List: Sort");
+		menuData.add("Linked List: Reverse list");
 
 		menu = new Menu(menuData, "List Menu", this);
 	}
@@ -43,6 +45,16 @@ public class ListHandler implements IHandler {
 		case 0:
 		{
 			list.printList("");
+			break;
+		}
+		case 1:
+		{
+			list.sort();
+			break;
+		}
+		case 2:
+		{
+			list.reverseList();
 			break;
 		}
 		}
