@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import learn.common.IHandler;
 import learn.common.Menu;
+import learn.linkedlist.ListHandler;
 import learn.search.SearchHandler;
 import learn.sorting.SortHandler;
 import learn.tree.TreeHandler;
@@ -22,6 +23,7 @@ public class MainMenuHandler implements IHandler {
 		menuData.add("B-Tree");
 		menuData.add("Java Features");
 		menuData.add("Threads");
+		menuData.add("Linked List");
 
 		this.menu = new Menu(menuData, "Main Menu", this);
 	}
@@ -59,6 +61,11 @@ public class MainMenuHandler implements IHandler {
 		case 5:
 		{
 			handler = new ThreadHandler();
+			break;
+		}
+		case 6:
+		{
+			handler = new ListHandler();
 			break;
 		}
 		}
