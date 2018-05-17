@@ -14,6 +14,7 @@ public class ListHandler implements IHandler {
 	private Scanner scanner;
 	private Menu menu;
 	private LinkedList<Integer> list;
+	private DoublyLinkedList<Integer> dList;
 
 	public ListHandler()
 	{
@@ -21,6 +22,9 @@ public class ListHandler implements IHandler {
 		menuData.add("Linked List: Print");
 		menuData.add("Linked List: Sort");
 		menuData.add("Linked List: Reverse list");
+		menuData.add("D-Linked List: Print");
+		menuData.add("D-Linked List: Sort");
+		menuData.add("D-Linked List: Reverse list");
 
 		menu = new Menu(menuData, "List Menu", this);
 	}
@@ -57,6 +61,21 @@ public class ListHandler implements IHandler {
 			list.reverseList();
 			break;
 		}
+		case 3:
+		{
+			dList.printList("");
+			break;
+		}
+		case 4:
+		{
+			dList.sort();
+			break;
+		}
+		case 5:
+		{
+			dList.reverseList();
+			break;
+		}
 		}
 		
 		return null;
@@ -83,6 +102,7 @@ public class ListHandler implements IHandler {
 		}
 
 		list = new LinkedList<>(inputData);
+		dList = new DoublyLinkedList<>(inputData);
 		return inputData.size();
 	}
 }

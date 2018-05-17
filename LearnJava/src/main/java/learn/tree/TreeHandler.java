@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import learn.common.IHandler;
 import learn.common.Menu;
+import learn.linkedlist.DoublyLinkedList;
 import learn.tree.btree.BTreeNode;
 import learn.tree.btree.TraversalOrder;
 
@@ -28,6 +29,7 @@ public class TreeHandler implements IHandler {
 		menuData.add("B-Tree: Delete");
 		menuData.add("B-Tree: Mirror");
 		menuData.add("B-Tree: LeftView");
+		menuData.add("B-Tree: Tree to DList");
 
 		menu = new Menu(menuData, "Tree Menu", this);
 	}
@@ -79,6 +81,11 @@ public class TreeHandler implements IHandler {
 			bTreeHead.search(readSingleInput("delete"));
 			break;
 		}
+		case 8:
+		{
+			binaryTreeToDoublyLinkedList();
+			break;
+		}
 		}
 		
 		return null;
@@ -124,5 +131,21 @@ public class TreeHandler implements IHandler {
 		}
 		
 		return retVal;
+	}
+
+	private void binaryTreeToDoublyLinkedList() {
+		DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+		inOrder(bTreeHead, list);
+		list.printList("Tree_to_List");
+	}
+
+	private void inOrder(BTreeNode treeNode, DoublyLinkedList<Integer> list)
+	{
+		if (treeNode != null)
+		{
+			inOrder(treeNode.getLeft(), list);
+			list.addNode(treeNode.getData());
+			inOrder(treeNode.getRight(), list);
+		}
 	}
 }

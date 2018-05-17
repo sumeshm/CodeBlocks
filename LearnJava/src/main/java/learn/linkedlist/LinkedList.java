@@ -120,7 +120,7 @@ public class LinkedList<T> {
 	private ListNode<T> sortedAndMerge(ListNode<T> leftNode, ListNode<T> rightNode) 
     {
 		ListNode<T> retVal = null;
-        
+
         if (leftNode == null) {
             return rightNode;
         }
