@@ -6,9 +6,9 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import learn.common.Menu;
-import learn.linkedlist.DoublyLinkedList;
-import learn.tree.btree.BTreeNode;
-import learn.tree.btree.TraversalOrder;
+import learn.ds.linkedlist.DoublyLinkedList;
+import learn.ds.tree.btree.BTreeNode;
+import learn.ds.tree.btree.TraversalOrder;
 
 public class TreeHandler implements IHandler {
 	

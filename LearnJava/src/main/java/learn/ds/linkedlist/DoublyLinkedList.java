@@ -1,4 +1,4 @@
-package learn.linkedlist;
+package learn.ds.linkedlist;
 
 import java.util.Vector;
 

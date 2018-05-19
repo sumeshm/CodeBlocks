@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
 
+import learn.algo.sorting.BubbleSort;
+import learn.algo.sorting.HeapSort;
+import learn.algo.sorting.InsertionSort;
+import learn.algo.sorting.MergeSort;
+import learn.algo.sorting.QuickSort;
+import learn.algo.sorting.SelectionSort;
 import learn.common.Menu;
-import learn.sorting.BubbleSort;
-import learn.sorting.HeapSort;
-import learn.sorting.InsertionSort;
-import learn.sorting.MergeSort;
-import learn.sorting.QuickSort;
-import learn.sorting.SelectionSort;
 
 public class SortHandler implements IHandler {
 

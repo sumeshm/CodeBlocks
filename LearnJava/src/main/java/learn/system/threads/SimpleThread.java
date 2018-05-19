@@ -1,4 +1,4 @@
-package learn.tree.threads;
+package learn.system.threads;
 
 public class SimpleThread extends Thread {
 

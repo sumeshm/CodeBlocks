@@ -1,4 +1,4 @@
-package learn.tree.threads.runners;
+package learn.system.threads.runners;
 
 public class PrintNumber implements Runnable {
 

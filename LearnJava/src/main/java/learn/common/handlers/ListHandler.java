@@ -6,8 +6,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import learn.common.Menu;
-import learn.linkedlist.DoublyLinkedList;
-import learn.linkedlist.LinkedList;
+import learn.ds.linkedlist.DoublyLinkedList;
+import learn.ds.linkedlist.LinkedList;
 
 public class ListHandler implements IHandler {
 	

@@ -3,7 +3,7 @@ package learn.common.handlers;
 import java.util.Vector;
 
 import learn.common.Menu;
-import learn.tree.threads.SimpleThread;
+import learn.system.threads.SimpleThread;
 
 public class ThreadHandler implements IHandler {
 	

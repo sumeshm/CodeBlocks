@@ -1,8 +1,7 @@
-package learn;
+package learn.common;
 
 import java.util.Stack;
 
-import learn.common.MenuStatus;
 import learn.common.handlers.IHandler;
 import learn.common.handlers.MainMenuHandler;
 

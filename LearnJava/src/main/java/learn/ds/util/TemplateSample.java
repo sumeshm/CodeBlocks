@@ -1,4 +1,4 @@
-package learn.util;
+package learn.ds.util;
 
 public class TemplateSample<T> {
 	private T t;

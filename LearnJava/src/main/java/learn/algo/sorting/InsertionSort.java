@@ -1,4 +1,4 @@
-package learn.sorting;
+package learn.algo.sorting;
 
 import java.util.Vector;
 

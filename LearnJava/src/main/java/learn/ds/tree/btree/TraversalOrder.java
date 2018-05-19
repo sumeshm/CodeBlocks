@@ -1,4 +1,4 @@
-package learn.tree.btree;
+package learn.ds.tree.btree;
 
 public enum TraversalOrder {
 	TRAVERSE_IN_ORDER,
