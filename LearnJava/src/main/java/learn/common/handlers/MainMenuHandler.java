@@ -1,14 +1,8 @@
-package learn.common;
+package learn.common.handlers;
 
 import java.util.Vector;
 
-import learn.common.IHandler;
 import learn.common.Menu;
-import learn.linkedlist.ListHandler;
-import learn.search.SearchHandler;
-import learn.sorting.SortHandler;
-import learn.tree.TreeHandler;
-import learn.tree.threads.ThreadHandler;
 
 public class MainMenuHandler implements IHandler {
 

@@ -1,8 +1,7 @@
-package learn.search;
+package learn.common.handlers;
 
 import java.util.Vector;
 
-import learn.common.IHandler;
 import learn.common.Menu;
 
 public class SearchHandler implements IHandler {

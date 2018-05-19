@@ -1,12 +1,13 @@
-package learn.linkedlist;
+package learn.common.handlers;
 
 import static java.lang.System.out;
 
 import java.util.Scanner;
 import java.util.Vector;
 
-import learn.common.IHandler;
 import learn.common.Menu;
+import learn.linkedlist.DoublyLinkedList;
+import learn.linkedlist.LinkedList;
 
 public class ListHandler implements IHandler {
 	

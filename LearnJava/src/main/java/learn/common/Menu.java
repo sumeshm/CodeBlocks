@@ -3,6 +3,8 @@ package learn.common;
 import java.util.Scanner;
 import java.util.Vector;
 
+import learn.common.handlers.IHandler;
+
 public class Menu {
 
 	private Vector<String> data;

@@ -1,4 +1,4 @@
-package learn.sorting;
+package learn.common.handlers;
 
 import static java.lang.System.in;
 import static java.lang.System.out;
@@ -7,8 +7,13 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
 
-import learn.common.IHandler;
 import learn.common.Menu;
+import learn.sorting.BubbleSort;
+import learn.sorting.HeapSort;
+import learn.sorting.InsertionSort;
+import learn.sorting.MergeSort;
+import learn.sorting.QuickSort;
+import learn.sorting.SelectionSort;
 
 public class SortHandler implements IHandler {
 

@@ -1,9 +1,9 @@
-package learn.tree.threads;
+package learn.common.handlers;
 
 import java.util.Vector;
 
-import learn.common.IHandler;
 import learn.common.Menu;
+import learn.tree.threads.SimpleThread;
 
 public class ThreadHandler implements IHandler {
 	

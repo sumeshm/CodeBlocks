@@ -2,9 +2,9 @@ package learn;
 
 import java.util.Stack;
 
-import learn.common.IHandler;
-import learn.common.MainMenuHandler;
 import learn.common.MenuStatus;
+import learn.common.handlers.IHandler;
+import learn.common.handlers.MainMenuHandler;
 
 public class MenuManager {
 
@@ -52,12 +52,4 @@ public class MenuManager {
 		manager.start();
 	}
 
-	public static void main(String[] args, String data) {
-		System.out.println("Well well....here we go again...");
-		MenuManager manager = new MenuManager();
-		manager.start();
-
-		Addable add = (int a, int b) -> (a + b);
-		int x = add.add(2,  3);
-	}
 }
