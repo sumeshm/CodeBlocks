@@ -20,6 +20,7 @@ public class AnnotationProcessor extends AbstractProcessor {
 
         for (Element element : roundEnv.getElementsAnnotatedWith(Menu.class)) {
             Menu menu = element.getAnnotation(Menu.class);
+            System.out.println(menu);
         }
 
         return false;

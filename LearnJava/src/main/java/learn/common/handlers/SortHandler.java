@@ -3,7 +3,6 @@ package learn.common.handlers;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
 
