@@ -14,10 +14,8 @@ public class MainMenuHandler implements IHandler {
 		menuData.add("Sorting");
 		menuData.add("Search");
 		menuData.add("DS");
-		menuData.add("B-Tree");
 		menuData.add("Java Features");
 		menuData.add("Threads");
-		menuData.add("Linked List");
 
 		this.menu = new Menu(menuData, "Main Menu", this);
 	}
@@ -42,24 +40,19 @@ public class MainMenuHandler implements IHandler {
 			handler = new SearchHandler();
 			break;
 		}
-		case 3:
+		case 2:
 		{
-			handler = new TreeHandler();
+			handler = new DataStructuresHandler();
 			break;
 		}
-		case 4:
+		case 3:
 		{
 			printJavaFeatures();
 			break;
 		}
-		case 5:
+		case 4:
 		{
 			handler = new ThreadHandler();
-			break;
-		}
-		case 6:
-		{
-			handler = new ListHandler();
 			break;
 		}
 		}
