@@ -15,6 +15,7 @@ public class DataStructuresHandler implements IHandler {
 		menuData.add("B-Tree");
 		menuData.add("Linked List");
 		menuData.add("Tower of Hanoi");
+		menuData.add("Queue with Stack");
 
 		this.menu = new Menu(menuData, "Main Menu", this);
 	}
