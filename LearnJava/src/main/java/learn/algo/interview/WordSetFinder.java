@@ -165,7 +165,6 @@ public class WordSetFinder {
 
 		@Override
 		public int compareTo(WordTracker arg0) {
-			// todo: incorporate 'word' also
 			return this.peek().compareTo(arg0.peek());
 		}
 

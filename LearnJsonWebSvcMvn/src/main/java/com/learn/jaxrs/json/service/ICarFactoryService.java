@@ -2,11 +2,16 @@ package com.learn.jaxrs.json.service;
 
 import java.util.List;
 
-//@Path("/carfactory")
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/carfactory")
 public interface ICarFactoryService {
 
-//	@GET
-//	@Path("/cars")
-//	@Produces(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/cars")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<CarPojo> getCarList();
 }

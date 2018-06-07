@@ -1,8 +1,10 @@
 package learn.common.handlers;
 
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import learn.common.Menu;
+import learn.system.threads.PrintNumSequence;
 import learn.system.threads.SimpleThread;
 
 public class ThreadHandler implements IHandler {
@@ -15,7 +17,7 @@ public class ThreadHandler implements IHandler {
 		menuData = new Vector<String>();
 		menuData.add("SimpleThread");
 		menuData.add("SimpleRunnable");
-		menuData.add("Two syncronized threads");
+		menuData.add("Three threads print in sequence");
 
 		menu = new Menu(menuData, "Threads Menu", this);
 	}
@@ -52,7 +54,10 @@ public class ThreadHandler implements IHandler {
 		}
 		case 2:
 		{
-			break;
+	          AtomicInteger atomicInteger = new AtomicInteger(0);
+	          new PrintNumSequence(atomicInteger, 0, 10).start();	// even
+	          new PrintNumSequence(atomicInteger, 1, 10).start();	// odd
+	          break;
 		}
 		case 3:
 		{
