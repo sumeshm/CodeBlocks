@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "79a354a3-ce9c-129e-30bf-29381380aa27",
+		"name": "Sumesh",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tomcat",
+			"description": "",
+			"item": [
+				{
+					"name": "Get - car list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LearnJsonWebSvc/carfactory/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnJsonWebSvc",
+								"carfactory",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post - add car",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "acc",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"model\": \"Kwid1\",\n        \"version\": 1\n    },\n    {\n        \"model\": \"Duster1\",\n        \"version\": 1\n    }\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnJsonWebSvc/carfactory/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnJsonWebSvc",
+								"carfactory",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put - update car",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"version\": 85,\n  \"model\": \"Kwid-RS\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnJsonWebSvc/carfactory/cars/Kwid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnJsonWebSvc",
+								"carfactory",
+								"cars",
+								"Kwid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL - remove car",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnJsonWebSvc/carfactory/cars/Duster",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnJsonWebSvc",
+								"carfactory",
+								"cars",
+								"Duster"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Java-JAX-RS",
+			"description": "",
+			"item": [
+				{
+					"name": "Jax-RS CarFactory Mvn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LearnJsonWebSvcMvn/carfactory/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnJsonWebSvcMvn",
+								"carfactory",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS Spring4 (1)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpring4RestSvc",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS Spring4 (2)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars/Fluence",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpring4RestSvc",
+								"cars",
+								"Fluence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS Spring4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"version\": 110,\n  \"model\": \"Fluence\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpring4RestSvc",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS Spring4",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"version\": 85,\n  \"model\": \"Kwid-RS\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars/Kwid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpring4RestSvc",
+								"cars",
+								"Kwid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS Spring4",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars/Fluence",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpring4RestSvc",
+								"cars",
+								"Fluence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS SpringBoot",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8888/LearnSpringBoot/cars.xml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"LearnSpringBoot",
+								"cars.xml"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jax-RS SpringBoot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"version\": 110,\n  \"model\": \"Fluence\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/LearnSpringBoot/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LearnSpringBoot",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "41f2c488-f0e5-4aaf-827e-9e6091e51b96",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cb8fed2-1333-4f0c-ae2b-6ee5f038810c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "faca4dff-7447-40fe-a580-41a983d07bdd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8e289247-4163-4566-8955-e24a6ad4294d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

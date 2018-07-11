@@ -2,11 +2,14 @@ package com.learn.jaxrs.json.service;
 
 import java.util.List;
 
-//@Path("/carfactory")
+
 public interface ICarFactoryService {
 
-//	@GET
-//	@Path("/cars")
-//	@Produces(MediaType.APPLICATION_JSON)
 	public List<CarPojo> getCarList();
+	
+	public List<CarPojo> create(List<CarPojo> newCarList);
+
+	public CarPojo update(String name, CarPojo updatedCar);
+
+	public Boolean delete(String name);
 }
