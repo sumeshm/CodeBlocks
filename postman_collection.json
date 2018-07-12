@@ -12,6 +12,9 @@
 				{
 					"name": "Get - car list",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -34,6 +37,9 @@
 				{
 					"name": "Post - add car",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -68,6 +74,9 @@
 				{
 					"name": "Put - update car",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -103,6 +112,9 @@
 				{
 					"name": "DEL - remove car",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -144,29 +156,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "Jax-RS CarFactory Mvn",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://localhost:8080/LearnJsonWebSvcMvn/carfactory/cars",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"LearnJsonWebSvcMvn",
-								"carfactory",
-								"cars"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Jax-RS Spring4 (1)",
+					"name": "Spring4 - get car list",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -192,7 +182,7 @@
 					"response": []
 				},
 				{
-					"name": "Jax-RS Spring4 (2)",
+					"name": "Spring4 - get car info",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -219,7 +209,7 @@
 					"response": []
 				},
 				{
-					"name": "Jax-RS Spring4",
+					"name": "Spring4 - add car",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -234,7 +224,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"version\": 110,\n  \"model\": \"Fluence\"\n}"
+							"raw": "{\n  \"version\": 110,\n  \"model\": \"Duster\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars",
@@ -252,7 +242,7 @@
 					"response": []
 				},
 				{
-					"name": "Jax-RS Spring4",
+					"name": "Spring4 - update car",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -270,7 +260,7 @@
 							"raw": "{\n  \"version\": 85,\n  \"model\": \"Kwid-RS\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars/Kwid",
+							"raw": "http://localhost:8080/LearnSpring4RestSvc/cars/Duster",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -279,14 +269,14 @@
 							"path": [
 								"LearnSpring4RestSvc",
 								"cars",
-								"Kwid"
+								"Duster"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Jax-RS Spring4",
+					"name": "Spring4 - del car",
 					"request": {
 						"method": "DELETE",
 						"header": [
