@@ -2,16 +2,14 @@ package com.learn.jaxrs.json.service;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
-@Path("/carfactory")
 public interface ICarFactoryService {
 
-	@GET
-	@Path("/cars")
-	@Produces(MediaType.APPLICATION_JSON)
 	public List<CarPojo> getCarList();
+	
+	public List<CarPojo> create(List<CarPojo> newCarList);
+
+	public CarPojo update(String name, CarPojo updatedCar);
+
+	public Boolean delete(String name);
 }
