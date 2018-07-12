@@ -14,17 +14,23 @@
 	</welcome-file-list>
 
 	<servlet>
-		<servlet-name>DefaultServlet</servlet-name>
+		<servlet-name>com.learn.jaxrs.json.service.DefaultServlet</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		<init-param>
+	    <init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>com.learn.jaxrs.json.service</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+		
+		<!-- logging -->
+	    <init-param>
+	        <param-name>jersey.config.server.tracing</param-name>
+	        <param-value>ALL</param-value>
+	    </init-param>
+    	<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>DefaultServlet</servlet-name>
+		<servlet-name>com.learn.jaxrs.json.service.DefaultServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 

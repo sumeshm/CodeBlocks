@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.learn.spring4</groupId>
 	<artifactId>LearnSpring4RestSvc</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>LearnSpring4RestSvc Maven Webapp</name>
+	<name>LearnSpring4RestSvc</name>
 
 	<properties>
 		<springframework.version>4.3.0.RELEASE</springframework.version>
@@ -37,13 +38,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.library}</version>
 		</dependency>
-		<!-- dependency> <groupId>com.fasterxml.jackson.dataformat</groupId> <artifactId>jackson-dataformat-xml</artifactId> 
-			<version>${jackson.library}</version> </dependency -->
 
 		<dependency>
 			<groupId>log4j</groupId>
@@ -51,6 +51,7 @@
 			<version>1.2.17</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -85,4 +86,5 @@
 
 		<finalName>LearnSpring4RestSvc</finalName>
 	</build>
+	<description>LearnSpring4RestSvc Maven Webapp</description>
 </project>
