@@ -1,9 +1,12 @@
 package com.learn.planetjup;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +26,10 @@ public class MouseGui implements ActionListener {
 	private JButton startButton;
 	private JButton stopButton;
 	private MouseThread thread = null;
+	
+	private static final int WIDTH = 160;
+	private static final int HEIGHT = 70;
+
 
 	enum GuiState {
 		WAITING, RUNNING;
@@ -33,13 +40,12 @@ public class MouseGui implements ActionListener {
 		createWaitingGui();
 
 		mainFrame = new JFrame("Mouse");
-		mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		mainFrame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			public void windowClosing(WindowEvent windowEvent) {
 				stopThread();
 			}
 		});
@@ -49,16 +55,14 @@ public class MouseGui implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (state == GuiState.WAITING)
-		{
+		if (state == GuiState.WAITING) {
 			startThread(inputText.getText());
 		} else {
 			stopThread();
 		}
 	}
-	
-	private void startThread(String input)
-	{
+
+	private void startThread(String input) {
 		try {
 			maxTime = Integer.parseInt(input);
 			thread = new MouseThread(maxTime);
@@ -66,14 +70,27 @@ public class MouseGui implements ActionListener {
 
 			changeState(GuiState.RUNNING);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			System.err.println("INPUT ERROR: Invalid number: " + e.getMessage());
+			inputText.setText("");
 			JOptionPane.showMessageDialog(panelWaiting, "Enter valid number", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
-	private void createRunningGui()
-	{
-		textLabel = new JLabel("Minutes");
+	private void stopThread() {
+		if (thread != null) {
+			thread.setDone();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				System.err.println("THREAD ERROR: " + e.getMessage());
+			}
+		}
+
+		changeState(GuiState.WAITING);
+	}
+
+	private void createRunningGui() {
+		textLabel = new JLabel("Minutes", JLabel.CENTER);
 
 		inputText = new JTextField(5);
 		inputText.setEditable(true);
@@ -83,44 +100,29 @@ public class MouseGui implements ActionListener {
 		startButton.addActionListener(this);
 
 		panelWaiting = new JPanel();
+		panelWaiting.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		panelWaiting.setLayout(new FlowLayout());
 		panelWaiting.add(textLabel);
 		panelWaiting.add(inputText);
 		panelWaiting.add(startButton);
 	}
-	
-	private void createWaitingGui()
-	{
+
+	private void createWaitingGui() {
 		stopButton = new JButton("Stop");
 		stopButton.addActionListener(this);
 
 		panelRunning = new JPanel();
+		panelRunning.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		panelRunning.setLayout(new FlowLayout());
 		panelRunning.add(stopButton);
 	}
 
-	private void stopThread()
-	{
-		if (thread != null) {
-			thread.setDone();
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	
-		changeState(GuiState.WAITING);
-	}
-
-	private void changeState(GuiState newState)
-	{
+	private void changeState(GuiState newState) {
 		this.state = newState;
 		updateGui();
 	}
 
-	private void updateGui()
-	{
+	private void updateGui() {
 		switch (state) {
 		case WAITING:
 			maxTime = 0;

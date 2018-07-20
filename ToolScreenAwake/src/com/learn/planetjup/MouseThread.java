@@ -28,9 +28,8 @@ public class MouseThread extends Thread {
 	public void run() {
 		System.out.println("START MOUSE: ### minutes=" + MAX_COUNT);
 
-		Robot robot;
 		try {
-			robot = new Robot();
+			Robot robot = new Robot();
 			while (isDone.get() == false && count++ < MAX_COUNT) 
 			{
 				PointerInfo info = MouseInfo.getPointerInfo(); 
@@ -40,8 +39,7 @@ public class MouseThread extends Thread {
 				Thread.sleep(DELAY);
 			}
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("UI ERROR: " + e.getMessage());
 		} catch (InterruptedException e) {
 			System.out.println("STOP MOUSE FORCED: ###");
 		}
