@@ -1,6 +1,5 @@
 package com.learn.planetjup;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,33 +14,47 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MouseGui implements ActionListener {
+public class MouseGui implements ActionListener, IUpdateListener {
 	private int maxTime = 0;
 	private GuiState state = GuiState.WAITING;
 	private JFrame mainFrame;
-	private JPanel panelWaiting;
-	private JPanel panelRunning;
+	private JPanel mainPanel;
 	private JLabel textLabel;
 	private JTextField inputText;
-	private JButton startButton;
-	private JButton stopButton;
+	private JButton submitButton;
 	private MouseThread thread = null;
-	
-	private static final int WIDTH = 160;
-	private static final int HEIGHT = 70;
 
+	private static final int TEXT_WIDTH = 8;
+	private static final int WIDTH = 220;
+	private static final int HEIGHT = 70;
 
 	enum GuiState {
 		WAITING, RUNNING;
 	}
 
 	public MouseGui() {
-		createRunningGui();
-		createWaitingGui();
+		textLabel = new JLabel("Minutes", JLabel.CENTER);
+
+		inputText = new JTextField(TEXT_WIDTH);
+		inputText.setEditable(true);
+		inputText.setHorizontalAlignment(JTextField.CENTER);
+
+		submitButton = new JButton("Start");
+		submitButton.addActionListener(this);
+
+		mainPanel = new JPanel();
+		mainPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		mainPanel.setLayout(new FlowLayout());
+		mainPanel.add(textLabel);
+		mainPanel.add(inputText);
+		mainPanel.add(submitButton);
 
 		mainFrame = new JFrame("Mouse");
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.add(mainPanel);
+		mainFrame.setVisible(true);
+		mainFrame.pack();
 
 		mainFrame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -62,17 +75,28 @@ public class MouseGui implements ActionListener {
 		}
 	}
 
+	@Override
+	public void timeUpdate(Integer lapsedTime, Integer maxTime) {
+		inputText.setText(lapsedTime + " / " + maxTime);
+	}
+
+	@Override
+	public void timeCompleted() {
+		thread = null;
+		changeState(GuiState.WAITING);
+	}
+
 	private void startThread(String input) {
 		try {
 			maxTime = Integer.parseInt(input);
-			thread = new MouseThread(maxTime);
+			thread = new MouseThread(maxTime, this);
 			thread.start();
 
 			changeState(GuiState.RUNNING);
 		} catch (NumberFormatException e) {
 			System.err.println("INPUT ERROR: Invalid number: " + e.getMessage());
 			inputText.setText("");
-			JOptionPane.showMessageDialog(panelWaiting, "Enter valid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(mainPanel, "Enter valid number", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -89,34 +113,6 @@ public class MouseGui implements ActionListener {
 		changeState(GuiState.WAITING);
 	}
 
-	private void createRunningGui() {
-		textLabel = new JLabel("Minutes", JLabel.CENTER);
-
-		inputText = new JTextField(5);
-		inputText.setEditable(true);
-		inputText.setHorizontalAlignment(JTextField.CENTER);
-
-		startButton = new JButton("Start");
-		startButton.addActionListener(this);
-
-		panelWaiting = new JPanel();
-		panelWaiting.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		panelWaiting.setLayout(new FlowLayout());
-		panelWaiting.add(textLabel);
-		panelWaiting.add(inputText);
-		panelWaiting.add(startButton);
-	}
-
-	private void createWaitingGui() {
-		stopButton = new JButton("Stop");
-		stopButton.addActionListener(this);
-
-		panelRunning = new JPanel();
-		panelRunning.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		panelRunning.setLayout(new FlowLayout());
-		panelRunning.add(stopButton);
-	}
-
 	private void changeState(GuiState newState) {
 		this.state = newState;
 		updateGui();
@@ -127,17 +123,19 @@ public class MouseGui implements ActionListener {
 		case WAITING:
 			maxTime = 0;
 			inputText.setText("");
-			mainFrame.remove(panelRunning);
-			mainFrame.add(panelWaiting);
+			inputText.setEditable(true);
+			submitButton.setText("Start");
+			textLabel.setText("Minutes");
 			break;
 		case RUNNING:
-			mainFrame.remove(panelWaiting);
-			mainFrame.add(panelRunning);
+			inputText.setEditable(false);
+			inputText.setText("0 / " + maxTime);
+			submitButton.setText("Stop");
+			textLabel.setText("Minutes Lapsed");
+
 			break;
 		}
 
-		mainFrame.setVisible(true);
-		mainFrame.pack();
 		mainFrame.getContentPane().repaint();
 	}
 }
