@@ -10,71 +10,132 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class MouseGui implements ActionListener {
+	private int maxTime = 0;
+	private GuiState state = GuiState.WAITING;
 	private JFrame mainFrame;
-	private JPanel panel;
+	private JPanel panelWaiting;
+	private JPanel panelRunning;
 	private JLabel textLabel;
 	private JTextField inputText;
-	private JButton submitButton;
+	private JButton startButton;
+	private JButton stopButton;
 	private MouseThread thread = null;
 
+	enum GuiState {
+		WAITING, RUNNING;
+	}
+
 	public MouseGui() {
+		createRunningGui();
+		createWaitingGui();
+
+		mainFrame = new JFrame("Mouse");
+		mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				stopThread();
+			}
+		});
+
+		changeState(GuiState.WAITING);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if (state == GuiState.WAITING)
+		{
+			startThread(inputText.getText());
+		} else {
+			stopThread();
+		}
+	}
+	
+	private void startThread(String input)
+	{
+		try {
+			maxTime = Integer.parseInt(input);
+			thread = new MouseThread(maxTime);
+			thread.start();
+
+			changeState(GuiState.RUNNING);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(panelWaiting, "Enter valid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
+	private void createRunningGui()
+	{
 		textLabel = new JLabel("Minutes");
 
 		inputText = new JTextField(5);
 		inputText.setEditable(true);
 		inputText.setHorizontalAlignment(JTextField.CENTER);
 
-		submitButton = new JButton("Start");
-		submitButton.addActionListener(this);
+		startButton = new JButton("Start");
+		startButton.addActionListener(this);
 
-		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		panel.add(textLabel);
-		panel.add(inputText);
-		panel.add(submitButton);
+		panelWaiting = new JPanel();
+		panelWaiting.setLayout(new FlowLayout());
+		panelWaiting.add(textLabel);
+		panelWaiting.add(inputText);
+		panelWaiting.add(startButton);
+	}
+	
+	private void createWaitingGui()
+	{
+		stopButton = new JButton("Stop");
+		stopButton.addActionListener(this);
 
-		mainFrame = new JFrame("Mouse");
-		mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
-		mainFrame.add(panel);
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setVisible(true);
-		mainFrame.pack();
-		
-		mainFrame.addWindowListener(new WindowAdapter() {
-		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		    	if (thread != null)
-		    	{
-		    		thread.setDone();
-		    		try {
-						thread.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-		    	}
-		    }
-		});
-		
+		panelRunning = new JPanel();
+		panelRunning.setLayout(new FlowLayout());
+		panelRunning.add(stopButton);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		int minutes = 0;
-		String input = inputText.getText();
-		
-		try {
-			minutes = Integer.parseInt(input);
-
-			thread = new MouseThread(minutes);
-			thread.start();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(panel, "Enter valid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+	private void stopThread()
+	{
+		if (thread != null) {
+			thread.setDone();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+	
+		changeState(GuiState.WAITING);
+	}
+
+	private void changeState(GuiState newState)
+	{
+		this.state = newState;
+		updateGui();
+	}
+
+	private void updateGui()
+	{
+		switch (state) {
+		case WAITING:
+			maxTime = 0;
+			inputText.setText("");
+			mainFrame.remove(panelRunning);
+			mainFrame.add(panelWaiting);
+			break;
+		case RUNNING:
+			mainFrame.remove(panelWaiting);
+			mainFrame.add(panelRunning);
+			break;
+		}
+
+		mainFrame.setVisible(true);
+		mainFrame.pack();
+		mainFrame.getContentPane().repaint();
 	}
 }
