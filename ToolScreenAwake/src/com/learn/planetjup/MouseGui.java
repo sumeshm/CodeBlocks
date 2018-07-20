@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class MouseGui implements ActionListener {
@@ -18,13 +19,14 @@ public class MouseGui implements ActionListener {
 	private JLabel textLabel;
 	private JTextField inputText;
 	private JButton submitButton;
-	MouseThread thread = null;
+	private MouseThread thread = null;
 
 	public MouseGui() {
 		textLabel = new JLabel("Minutes");
 
 		inputText = new JTextField(5);
 		inputText.setEditable(true);
+		inputText.setHorizontalAlignment(JTextField.CENTER);
 
 		submitButton = new JButton("Start");
 		submitButton.addActionListener(this);
@@ -36,7 +38,7 @@ public class MouseGui implements ActionListener {
 		panel.add(submitButton);
 
 		mainFrame = new JFrame("Mouse");
-		
+		mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
 		mainFrame.add(panel);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
