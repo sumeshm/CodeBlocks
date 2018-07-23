@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,10 +27,12 @@ public class MouseGui implements ActionListener, MouseListener, IUpdateListener 
 	private JTextField inputText;
 	private JButton submitButton;
 	private MouseThread thread = null;
+	private ImageIcon playIcon = null;
+	private ImageIcon stopIcon = null;
 
 	private static final int TEXT_WIDTH = 8;
 	private static final int WIDTH = 220;
-	private static final int HEIGHT = 80;
+	private static final int HEIGHT = 90;
 	private static final int INSET = 8;
 
 	enum GuiState {
@@ -45,8 +48,12 @@ public class MouseGui implements ActionListener, MouseListener, IUpdateListener 
 		inputText.addMouseListener(this);
 		inputText.setMargin(new Insets(INSET, INSET, INSET, INSET));
 
-		submitButton = new JButton("Start");
+		playIcon = new ImageIcon("./resources/play.png");
+		stopIcon = new ImageIcon("./resources/stop.png");
+		
+		submitButton = new JButton();
 		submitButton.addActionListener(this);
+		submitButton.setBorderPainted(false);
 
 		mainPanel = new JPanel();
 		mainPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -140,13 +147,13 @@ public class MouseGui implements ActionListener, MouseListener, IUpdateListener 
 			textLabel.setText("Minutes");
 			inputText.setText("0");
 			inputText.setEditable(true);
-			submitButton.setText("Start");
+			submitButton.setIcon(playIcon);
 			break;
 		case RUNNING:
 			textLabel.setText("Minutes Lapsed");
 			inputText.setEditable(false);
 			timeUpdate(0, maxTime);
-			submitButton.setText("Stop");
+			submitButton.setIcon(stopIcon);
 			break;
 		}
 

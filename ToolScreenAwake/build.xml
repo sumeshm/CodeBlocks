@@ -1,0 +1,38 @@
+<project name="ToolScreenAwake" default="dist" basedir=".">
+	<description>Application to keep screen awake by making small mouse movements</description>
+
+	<!-- global properties -->
+	<property name="src" location="${basedir}/src" />
+	<property name="bin" location="${basedir}/bin" />
+	<property name="data" location="${basedir}/resources" />
+	<property name="version" value="1.0" />
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${bin}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<javac srcdir="${src}" destdir="${bin}" />
+	</target>
+
+	<target name="dist" depends="compile" description="generate the JAR">
+		<buildnumber />
+		<jar destfile="${basedir}/awake.jar">
+			<fileset dir="${bin}"/>
+			<fileset dir="${data}"/>
+			<manifest>
+				<attribute name="Main-Class" value="com.learn.planetjup.Driver"/>
+			</manifest>		
+		</jar>
+	</target>
+	
+	<target name="clean" description="clean up">
+		<!-- 
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		-->
+	</target>
+</project>
