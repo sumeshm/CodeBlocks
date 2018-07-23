@@ -32,7 +32,7 @@ public class MouseThread extends Thread {
 
 		try {
 			Robot robot = new Robot();
-			while (isDone.get() == false && count++ < MAX_COUNT) 
+			while (isDone.get() == false && isCountValid(count++)) 
 			{
 				PointerInfo info = MouseInfo.getPointerInfo(); 
 				Point point = info.getLocation();
@@ -49,5 +49,19 @@ public class MouseThread extends Thread {
 
 		listener.timeCompleted();
 		System.out.println("STOP MOUSE: ###");
+	}
+
+	private Boolean isCountValid(int count)
+	{
+		if (MAX_COUNT < 0)
+		{
+			return Boolean.FALSE;
+		}
+		else if (MAX_COUNT == 0 || count < MAX_COUNT)
+		{
+			return Boolean.TRUE;
+		}
+
+		return Boolean.FALSE;
 	}
 }

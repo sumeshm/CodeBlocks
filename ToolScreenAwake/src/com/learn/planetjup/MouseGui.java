@@ -2,8 +2,11 @@ package com.learn.planetjup;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MouseGui implements ActionListener, IUpdateListener {
+public class MouseGui implements ActionListener, MouseListener, IUpdateListener {
 	private int maxTime = 0;
 	private GuiState state = GuiState.WAITING;
 	private JFrame mainFrame;
@@ -26,7 +29,8 @@ public class MouseGui implements ActionListener, IUpdateListener {
 
 	private static final int TEXT_WIDTH = 8;
 	private static final int WIDTH = 220;
-	private static final int HEIGHT = 70;
+	private static final int HEIGHT = 80;
+	private static final int INSET = 8;
 
 	enum GuiState {
 		WAITING, RUNNING;
@@ -38,6 +42,8 @@ public class MouseGui implements ActionListener, IUpdateListener {
 		inputText = new JTextField(TEXT_WIDTH);
 		inputText.setEditable(true);
 		inputText.setHorizontalAlignment(JTextField.CENTER);
+		inputText.addMouseListener(this);
+		inputText.setMargin(new Insets(INSET, INSET, INSET, INSET));
 
 		submitButton = new JButton("Start");
 		submitButton.addActionListener(this);
@@ -76,8 +82,17 @@ public class MouseGui implements ActionListener, IUpdateListener {
 	}
 
 	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (state == GuiState.WAITING)
+		{
+			inputText.setText("");
+		}
+	}
+
+	@Override
 	public void timeUpdate(Integer lapsedTime, Integer maxTime) {
-		inputText.setText(lapsedTime + " / " + maxTime);
+		String postFix = (maxTime == 0) ? "-" : maxTime.toString();
+		inputText.setText(lapsedTime + " / " + postFix);
 	}
 
 	@Override
@@ -122,20 +137,35 @@ public class MouseGui implements ActionListener, IUpdateListener {
 		switch (state) {
 		case WAITING:
 			maxTime = 0;
-			inputText.setText("");
+			textLabel.setText("Minutes");
+			inputText.setText("0");
 			inputText.setEditable(true);
 			submitButton.setText("Start");
-			textLabel.setText("Minutes");
 			break;
 		case RUNNING:
-			inputText.setEditable(false);
-			inputText.setText("0 / " + maxTime);
-			submitButton.setText("Stop");
 			textLabel.setText("Minutes Lapsed");
-
+			inputText.setEditable(false);
+			timeUpdate(0, maxTime);
+			submitButton.setText("Stop");
 			break;
 		}
 
 		mainFrame.getContentPane().repaint();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 }
