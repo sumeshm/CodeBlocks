@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MouseThread extends Thread {
 	
-	private final int DELAY = 30 * 1000;
+	private final int DELAY = 60 * 1000;
 	private final int MAX_COUNT;
 	private int count = 0;
 	private AtomicBoolean isDone;
