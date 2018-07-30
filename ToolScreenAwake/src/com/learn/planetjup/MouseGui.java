@@ -48,8 +48,8 @@ public class MouseGui implements ActionListener, MouseListener, IUpdateListener 
 		inputText.addMouseListener(this);
 		inputText.setMargin(new Insets(INSET, INSET, INSET, INSET));
 
-		playIcon = new ImageIcon("./resources/play.png");
-		stopIcon = new ImageIcon("./resources/stop.png");
+		playIcon = new ImageIcon(getClass().getResource("/play.png"));
+		stopIcon = new ImageIcon(getClass().getResource("/stop.png"));
 		
 		submitButton = new JButton();
 		submitButton.addActionListener(this);

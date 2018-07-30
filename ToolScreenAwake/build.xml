@@ -1,38 +1,51 @@
-<project name="ToolScreenAwake" default="dist" basedir=".">
+<project name="ToolScreenAwake" default="all" basedir=".">
 	<description>Application to keep screen awake by making small mouse movements</description>
 
 	<!-- global properties -->
-	<property name="src" location="${basedir}/src" />
-	<property name="bin" location="${basedir}/bin" />
-	<property name="data" location="${basedir}/resources" />
+	<property name="src-path" location="${basedir}/src" />
+	<property name="bin-path" location="${basedir}/bin" />
+	<property name="res-path" location="${basedir}/resources" />
+	<property name="jar-file" location="${basedir}/awake.jar" />
 	<property name="version" value="1.0" />
 
-	<target name="init">
+	<target name="init" >
+		<echo message="INIT"/>
 		<!-- Create the time stamp -->
 		<tstamp />
 		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${bin}" />
+		<mkdir dir="${bin-path}" />
 	</target>
 
 	<target name="compile" depends="init" description="compile the source">
-		<javac srcdir="${src}" destdir="${bin}" />
+		<echo message="COMPILE"/>
+		<javac srcdir="${src-path}" destdir="${bin-path}" includeantruntime="false" />
 	</target>
 
-	<target name="dist" depends="compile" description="generate the JAR">
+	<target name="clean">
+		<echo message="CLEAN"/>
+		<delete dir="${build}" />
+		<delete file="${jar-file}" />
+	</target>
+
+	<target name="build" depends="compile">
+		<echo message="BUILD"/>
 		<buildnumber />
-		<jar destfile="${basedir}/awake.jar">
-			<fileset dir="${bin}"/>
-			<fileset dir="${data}"/>
+		<jar destfile="${jar-file}">
+			<fileset dir="${bin-path}" />
+			<fileset dir="${res-path}" />
 			<manifest>
-				<attribute name="Main-Class" value="com.learn.planetjup.Driver"/>
-			</manifest>		
+				<attribute name="Main-Class" value="com.learn.planetjup.Driver" />
+				<attribute name="Classpath" value="${res-path}" />
+			</manifest>
 		</jar>
 	</target>
-	
-	<target name="clean" description="clean up">
-		<!-- 
-		<delete dir="${build}" />
-		<delete dir="${dist}" />
-		-->
+
+	<target name="run">
+		<echo message="RUN"/>
+		<java jar="${jar-file}" fork="true" />
+	</target>
+
+	<target name="all" depends="clean, build, run">
+		<echo message="ALL"/>
 	</target>
 </project>
