@@ -1,9 +1,10 @@
-package com.learn.spring4.service;
+package com.learn.spring.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+//@Entity	// todo - JPA
 public class CarPojo {
 	private int version;
 	private String model;

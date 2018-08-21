@@ -1,8 +1,9 @@
-package com.learn.spring4.controller;
+package com.learn.spring.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,62 +17,68 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.spring4.dao.CarDAO;
-import com.learn.spring4.service.CarPojo;
+import com.learn.spring.model.CarPojo;
+import com.learn.spring.service.ICarFactoryService;
 
 @RestController
 @RequestMapping("/LearnSpringBoot")
 public class ServletController {
 
 	// http://localhost:8080/LearnSpringBoot/cars/
-	
-	private Logger logger = Logger.getLogger(ServletController.class);
+
+	private Logger logger = LoggerFactory.getLogger(ServletController.class);
 
 	@Autowired
-	private CarDAO carDao;
+	protected ICarFactoryService carService;
 
-	@RequestMapping(path = "/cars", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+	@RequestMapping(path = "/cars", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public List<CarPojo> getCars() {
 		logger.info("sumesh: Get the list of cars");
-		return carDao.getList();
+		return carService.getCarList();
 	}
 
 	@GetMapping(path = "/cars/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CarPojo getCar(@PathVariable String name) {
-		CarPojo car = carDao.get(name);
-		if (car != null)
-		{
-			return car;
+	public ResponseEntity<CarPojo> getCar(@PathVariable String name) {
+		CarPojo car = carService.getCar(name);
+		if (car != null) {
+			return new ResponseEntity<CarPojo>(car, HttpStatus.OK);
+		} else {
+			// todo, respond back with link for crating car
+			return new ResponseEntity<CarPojo>(HttpStatus.NOT_FOUND);
 		}
-
-		return (new CarPojo());
 	}
 
 	@PostMapping(path = "/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CarPojo> createCar(@RequestBody CarPojo car) {
-		return new ResponseEntity<CarPojo>(carDao.create(car), HttpStatus.OK);
+		CarPojo retVal = carService.createCar(car);
+		if (retVal != null) {
+			return new ResponseEntity<CarPojo>(retVal, HttpStatus.CREATED);
+		} else {
+			// todo, respond back with some error info
+			return new ResponseEntity<CarPojo>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping(path = "/cars/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CarPojo> updateCar(@PathVariable String name, @RequestBody CarPojo car) {
-		
-		CarPojo updatedCar = carDao.update(name, car);
-		if (updatedCar != null)
-		{
-			return new ResponseEntity<CarPojo>(updatedCar, HttpStatus.OK);
-		}
 
-		return new ResponseEntity<CarPojo>(new CarPojo(), HttpStatus.NOT_FOUND);
+		if (carService.updateCar(name, car) == Boolean.TRUE) {
+			CarPojo retVal = carService.getCar(name);
+			return new ResponseEntity<CarPojo>(retVal, HttpStatus.OK);
+		} else {
+			// todo, respond back with some error info
+			return new ResponseEntity<CarPojo>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping("/cars/{name}")
 	public ResponseEntity<String> deleteCar(@PathVariable String name) {
 
-		if (carDao.delete(name))
-		{
-			return new ResponseEntity<String>(name, HttpStatus.OK);
+		if (carService.deleteCar(name) == Boolean.TRUE) {
+			return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+		} else {
+			// todo, respond back with some error info
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<String>(name + " not found", HttpStatus.NOT_FOUND);
 	}
 }

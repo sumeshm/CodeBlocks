@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.learn.spring4.service.CarPojo;
+import com.learn.spring.model.CarPojo;
 
 @Component
 public class CarDAO {
