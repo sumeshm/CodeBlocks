@@ -11,6 +11,8 @@ public interface ICarFactoryService {
 	public List<CarPojo> getCarList();
 
 	public CarPojo createCar(CarPojo car);
+	
+	public Boolean createCars(List<CarPojo> carList);
 
 	public Boolean updateCar(String carName, CarPojo car);
 

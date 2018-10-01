@@ -1,0 +1,7 @@
+curl -X POST -H "Content-Type: application/json" -d @./cars.json  http://localhost:8080/LearnSpringBoot/cars 
+curl -X POST -H "Content-Type: application/json" -d @./car.json  http://localhost:8080/LearnSpringBoot/car
+curl -X GET http://localhost:8080/LearnSpringBoot/cars/
+curl -X GET http://localhost:8080/LearnSpringBoot/car/Duster
+curl -X PUT -H "Content-Type: application/json" -d @./car.json `http://localhost:8080/LearnSpringBoot/cars/Duster
+
+

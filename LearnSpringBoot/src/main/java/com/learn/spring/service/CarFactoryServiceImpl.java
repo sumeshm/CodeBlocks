@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.learn.spring.model.CarPojo;
 import com.learn.spring4.dao.CarDAO;
 
-@Service("employeeService")
+@Service("carService")
 public class CarFactoryServiceImpl implements ICarFactoryService {
 
 	@Autowired
@@ -32,6 +32,17 @@ public class CarFactoryServiceImpl implements ICarFactoryService {
 	@Override
 	public CarPojo createCar(CarPojo car) {
 		return carDao.create(car);
+	}
+
+	@Override
+	public Boolean createCars(List<CarPojo> carList) {
+		int count = 0;
+		for (CarPojo car : carList) {
+			carDao.create(car);
+			count++;
+		}
+
+		return (carList.size() == count) ? Boolean.TRUE : Boolean.FALSE;
 	}
 
 	@Override

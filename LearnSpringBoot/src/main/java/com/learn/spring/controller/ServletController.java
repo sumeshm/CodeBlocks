@@ -48,7 +48,7 @@ public class ServletController {
 		}
 	}
 
-	@PostMapping(path = "/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/car", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<CarPojo> createCar(@RequestBody CarPojo car) {
 		CarPojo retVal = carService.createCar(car);
 		if (retVal != null) {
@@ -56,6 +56,16 @@ public class ServletController {
 		} else {
 			// todo, respond back with some error info
 			return new ResponseEntity<CarPojo>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping(path = "/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> createCars(@RequestBody List<CarPojo> carList) {
+		Boolean retVal = carService.createCars(carList);
+		if (retVal) {
+			return new ResponseEntity<String>(retVal.toString(), HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
