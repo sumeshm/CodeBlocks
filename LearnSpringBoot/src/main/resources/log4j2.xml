@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<Properties>
+		<Property name="log-path">logs</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[level=%-5level]  %d{yyyy-MM-dd HH:mm:ss.SSS}  [%-17t]  %c{1}:%M:%L - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.learn.spring" level="info" additivity="false">
+			<appender-ref ref="console" level="info" />
+		</Logger>
+		<Root level="info" additivity="false">
+			<appender-ref ref="console" />
+		</Root>
+	</Loggers>
+</Configuration>

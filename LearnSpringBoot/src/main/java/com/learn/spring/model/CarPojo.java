@@ -1,15 +1,12 @@
 package com.learn.spring.model;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-//@Entity	// todo - JPA
 public class CarPojo {
 	private int version;
 	private String model;
 
-	@XmlElement
 	public int getVersion() {
 		return version;
 	}
@@ -18,7 +15,6 @@ public class CarPojo {
 		this.version = version;
 	}
 
-	@XmlElement
 	public String getModel() {
 		return model;
 	}
@@ -27,13 +23,8 @@ public class CarPojo {
 		this.model = model;
 	}
 
-	public CarPojo(int version, String model) {
-		super();
-		this.version = version;
-		this.model = model;
-	}
-
-	public CarPojo() {
-		super();
+	@Override
+	public String toString() {
+		return "CarPojo { version : " + version + ", model : " + model + " }";
 	}
 }
