@@ -79,6 +79,10 @@ public class MouseGui implements ActionListener, MouseListener, IUpdateListener 
 		changeState(GuiState.WAITING);
 	}
 
+	public void awake() {
+		startThread("0");
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (state == GuiState.WAITING) {
