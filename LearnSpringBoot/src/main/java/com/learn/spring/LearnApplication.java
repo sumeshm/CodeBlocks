@@ -3,8 +3,10 @@ package com.learn.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 @ComponentScan({ "com.learn.spring", "com.learn.spring4.controller", "com.learn.spring4.dao", "com.learn.spring4.service" })
 public class LearnApplication {
 
