@@ -12,6 +12,7 @@ public class ScheduledWork {
 
 	// "0    0  *    *  *  *" = the top of every hour of every day.
 	// "*/10 *  *    *  *  *" = every ten seconds.
+	// "0/60 *  *    *  *  *" = every sixty seconds.
 	// "0    0  6,19 *  *  *" = 6:00 AM and 7:00 PM every day.
 	// "0    0  6    *  *  *" = 6:00 AM every day.
 	// "30   *  *    *  *  *" = every 30 seconds.
