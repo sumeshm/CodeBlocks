@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.interview.common.InputValidationException;
 import com.interview.service.IExclusionService;
@@ -16,11 +17,14 @@ public class ExclusionServiceImpl implements IExclusionService {
 
 	Map<String, String> blacklistMap = new HashMap<>();
 
+	@Autowired
+	private AvatarValidator avatarValidator;
+
 	@Override
 	public boolean validate(String dob, String ssn) throws InputValidationException {
 		LOGGER.info("Blacklist size:" + blacklistMap.size());
 		boolean retVal = false;
-		AvatarValidator.validateRequest(ssn, dob);
+		avatarValidator.validateRequest(ssn, dob);
 		String retDOB = blacklistMap.get(ssn);
 		if (null != retDOB) {
 			LOGGER.info("SSN-DOB has been found in Blacklist");
@@ -39,7 +43,7 @@ public class ExclusionServiceImpl implements IExclusionService {
 		}
 
 		ssnDobMap.forEach((ssn, dob) -> {
-			AvatarValidator.validateRequest(ssn, dob);
+			avatarValidator.validateRequest(ssn, dob);
 			blacklistMap.put(ssn, dob);
 		});
 

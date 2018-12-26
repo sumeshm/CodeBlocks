@@ -10,6 +10,7 @@ import com.interview.service.IAvatarService;
 import com.interview.service.IExclusionService;
 import com.interview.service.impl.AvatarServiceImpl;
 import com.interview.service.impl.ExclusionServiceImpl;
+import com.interview.service.util.AvatarValidator;
 
 @Configuration
 public class AppConfig {
@@ -30,5 +31,11 @@ public class AppConfig {
 	@Scope("singleton")
     public IAvatarDaoService avatarDaoService() {
 		return new AvatarDaoService();
+	}
+
+	@Bean
+	@Scope("singleton")
+    public AvatarValidator avatarValidator() {
+		return new AvatarValidator();
 	}
 }

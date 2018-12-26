@@ -7,34 +7,20 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
+import com.interview.common.AppProperties;
 import com.interview.common.InputValidationException;
 import com.interview.model.AvatarRequest;
 
+@Scope("singleton")
 public class AvatarValidator {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AvatarValidator.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(AvatarValidator.class);
 
-	@Value("${avatar.userName.min.length}")
-	private static int MIN_LENGTH_USER_NAME;
-
-	@Value("${avatar.userName.max.length}")
-	private static int MAX_LENGTH_USER_NAME;
-
-	@Value("${avatar.password.min.length}")
-	private static int MIN_LENGTH_PASSWORD;
-
-	@Value("${avatar.password.max.length}")
-	private static int MAX_LENGTH_PASSWORD;
-
-
-    // ISO 8601
-	private static final String dobFormatData = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-	private static final SimpleDateFormat dobFormat = new SimpleDateFormat(dobFormatData);
-
-	// SSN
-	private static final String ssnRegex = "^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$";
+	@Autowired
+	private AppProperties appProps;
 
 	//private static final String userNameRegex = "\"[a-zA-Z0-9]+\"";
 	// "^[a-zA-Z0-9]+$"; 
@@ -46,7 +32,10 @@ public class AvatarValidator {
 	 * @return
 	 * @throws InputValidationException
 	 */
-	public static boolean validateRequest(AvatarRequest avatarRequest) throws InputValidationException {
+	public boolean validateRequest(AvatarRequest avatarRequest) throws InputValidationException {
+		LOGGER.info("############   ########### appProps=" + appProps.getDobFormat());
+		LOGGER.info("############   ########### appProps=" + appProps.getSsnRegex());
+
 		if (!isUserNameValid(avatarRequest.getUserName())) {
 			LOGGER.error("Invalid user-name format");
 			throw new InputValidationException("Avatar.userName", avatarRequest.getUserName(),
@@ -62,7 +51,7 @@ public class AvatarValidator {
 		if (!isDobValid(avatarRequest.getDob())) {
 			LOGGER.error("Invalid date format for DOB");
 			throw new InputValidationException("Avatar.dob", avatarRequest.getDob(),
-					"Invalid date format for DOB, use: " + dobFormatData);
+					"Invalid date format for DOB, use: " + appProps.getDobFormat());
 		}
 
 		if (!isSsnValid(avatarRequest.getSsn())) {
@@ -81,11 +70,11 @@ public class AvatarValidator {
 	 * @return
 	 * @throws InputValidationException
 	 */
-	public static boolean validateRequest(String ssn, String dob) throws InputValidationException {
+	public boolean validateRequest(String ssn, String dob) throws InputValidationException {
 		if (!isDobValid(dob)) {
 			LOGGER.error("Invalid date format for DOB");
 			throw new InputValidationException("Avatar.dob", dob,
-					"Invalid date format for DOB, use: " + dobFormatData);
+					"Invalid date format for DOB, use: " + appProps.getDobFormat());
 		}
 
 		if (!isSsnValid(ssn)) {
@@ -98,7 +87,7 @@ public class AvatarValidator {
 		return true;
 	}
 
-	private static boolean isUserNameValid(String userName) throws InputValidationException {
+	private boolean isUserNameValid(String userName) throws InputValidationException {
 		// alpha-numerical without spaces
 		// return userName.matches(userNameRegex);
 
@@ -108,7 +97,7 @@ public class AvatarValidator {
 		// a --> x61 to z --> x7A
 		boolean isAlpha = false;
 		boolean isNumeric = false;
-		if (null != userName && userName.length() >= MIN_LENGTH_USER_NAME && userName.length() <= MAX_LENGTH_USER_NAME) {
+		if (null != userName && userName.length() >= appProps.getUserNameMinLength() && userName.length() <= appProps.getUserNameMaxLength()) {
 			for (int count = 0; count < userName.length() && (!isNumeric || !isAlpha); count++) {
 				int testChar = userName.charAt(count);
 
@@ -128,7 +117,7 @@ public class AvatarValidator {
 		return (isNumeric & isAlpha);
 	}
 
-	private static boolean isPasswordValid(String password) throws InputValidationException {
+	private boolean isPasswordValid(String password) throws InputValidationException {
 		// password (at least four characters, at least one upper case character, at least one number)
 
 		// ASCII range HEX values
@@ -139,7 +128,7 @@ public class AvatarValidator {
 		boolean isAlpha = false;
 		boolean isUpperCase = false;
 		boolean isNumeric = false;
-		if (null != password && password.length() >= MIN_LENGTH_PASSWORD && password.length() <= MAX_LENGTH_PASSWORD) {
+		if (null != password && password.length() >= appProps.getPasswordMinLength() && password.length() <= appProps.getPasswordMaxLength()) {
 
 			for (int count = 0; count < password.length() && (!isNumeric || !isAlpha || !isUpperCase); count++) {
 				int testChar = password.charAt(count);
@@ -161,11 +150,12 @@ public class AvatarValidator {
 		return (isNumeric & isAlpha & isUpperCase);
 	}
 
-	private static boolean isDobValid(String dob) {
+	private boolean isDobValid(String dob) {
 		boolean retVal = false;
 
 		if (null != dob) {
 			try {
+				SimpleDateFormat dobFormat = new SimpleDateFormat(appProps.getDobFormat());
 				dobFormat.parse(dob);
 				retVal = true;
 			} catch (ParseException ex) {
@@ -176,10 +166,10 @@ public class AvatarValidator {
 		return retVal;
 	}
 
-	private static boolean isSsnValid(String ssn) {
+	private boolean isSsnValid(String ssn) {
 		boolean retVal = false;
 		if (null != ssn) {
-			Pattern pattern = Pattern.compile(ssnRegex);
+			Pattern pattern = Pattern.compile(appProps.getSsnRegex());
 			Matcher matcher = pattern.matcher(ssn);
 			retVal = matcher.matches();
 		}

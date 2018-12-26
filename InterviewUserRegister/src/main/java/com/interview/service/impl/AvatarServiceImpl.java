@@ -22,10 +22,13 @@ public class AvatarServiceImpl implements IAvatarService {
 	@Autowired
 	private IExclusionService exclusionService;
 
+	@Autowired
+	private AvatarValidator avatarValidator;
+
 	@Override
 	public String createAvatar(AvatarRequest avatarRequest) throws InputValidationException {
 		// 1. validate request data
-		AvatarValidator.validateRequest(avatarRequest);
+		avatarValidator.validateRequest(avatarRequest);
 
 		// 2. check if SSN-DOB is blacklisted
 		boolean isBlacklisted = exclusionService.validate(avatarRequest.getDob(), avatarRequest.getSsn());
