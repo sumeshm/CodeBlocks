@@ -5,10 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.interview.common.InputValidationException;
-import com.interview.dao.AvatarDaoService;
 import com.interview.model.AvatarEntity;
 import com.interview.model.AvatarRequest;
+import com.interview.service.IAvatarDaoService;
 import com.interview.service.IAvatarService;
+import com.interview.service.IExclusionService;
 import com.interview.service.util.AvatarValidator;
 
 public class AvatarServiceImpl implements IAvatarService {
@@ -16,14 +17,24 @@ public class AvatarServiceImpl implements IAvatarService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
 	@Autowired
-	private AvatarDaoService avatarDaoService;
+	private IAvatarDaoService avatarDaoService;
+
+	@Autowired
+	private IExclusionService exclusionService;
 
 	@Override
 	public String createAvatar(AvatarRequest avatarRequest) throws InputValidationException {
 		// 1. validate request data
 		AvatarValidator.validateRequest(avatarRequest);
 
-		// 2. check if already registered
+		// 2. check if SSN-DOB is blacklisted
+		boolean isBlacklisted = exclusionService.validate(avatarRequest.getDob(), avatarRequest.getSsn());
+		if (isBlacklisted) {
+			LOGGER.error("Avatar is blacklisted");
+			throw new InputValidationException("Avatar is blacklisted", "", "");
+		}
+
+		// 3. check if already registered
 		if (isAvatarDuplicate(avatarRequest.getUserName())) {
 			LOGGER.error("Avatar is already registered");
 			throw new InputValidationException("Avatar.userName", avatarRequest.getUserName(),
@@ -32,14 +43,14 @@ public class AvatarServiceImpl implements IAvatarService {
 
 		LOGGER.info("Avatar-Request has been accepted");
 
-		// 3. map request to entity
+		// 4. map request to entity
 		AvatarEntity avatarEntity = new AvatarEntity();
 		avatarEntity.setUserName(avatarRequest.getUserName());
 		avatarEntity.setPassword(avatarRequest.getPassword());
 		avatarEntity.setDob(avatarRequest.getDob());
 		avatarEntity.setSsn(avatarRequest.getSsn());
 
-		// 4. write to DB
+		// 5. write to DB
 		AvatarEntity retVal = avatarDaoService.saveOrUpdate(avatarEntity);
 		LOGGER.info("Avatar saved to repo: " + retVal.toString());
 
@@ -50,7 +61,7 @@ public class AvatarServiceImpl implements IAvatarService {
 		boolean retVal = false;
 
 		if (null != userName && !userName.isEmpty()) {
-			AvatarEntity entity = avatarDaoService.getAvatarByName(userName);
+			AvatarEntity entity = avatarDaoService.getByName(userName);
 			if (null != entity) {
 				retVal = true;
 			}

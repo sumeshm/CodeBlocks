@@ -18,29 +18,40 @@ public class ExclusionServiceImpl implements IExclusionService {
 
 	@Override
 	public boolean validate(String dob, String ssn) throws InputValidationException {
-		return AvatarValidator.validateRequest(ssn, dob);
+		LOGGER.info("Blacklist size:" + blacklistMap.size());
+		boolean retVal = false;
+		AvatarValidator.validateRequest(ssn, dob);
+		String retDOB = blacklistMap.get(ssn);
+		if (null != retDOB) {
+			LOGGER.info("SSN-DOB has been found in Blacklist");
+			retVal = retDOB.equals(dob);
+		}
+
+		return retVal;
 	}
 
 	@Override
 	public Map<String, String> addBlacklist(Map<String, String> ssnDobMap) throws InputValidationException {
+		LOGGER.info("Blacklist size(start):" + blacklistMap.size());
 		if (null == ssnDobMap || ssnDobMap.isEmpty()) {
 			LOGGER.error("SSN-DOB map is invalid");
 			throw new InputValidationException("", "", "SSN-DOB map is invalid");
 		}
 
-		ssnDobMap.forEach((ssn, dob) -> 
-		{
+		ssnDobMap.forEach((ssn, dob) -> {
 			AvatarValidator.validateRequest(ssn, dob);
 			blacklistMap.put(ssn, dob);
-		}); 
+		});
 
-		LOGGER.info("SSN-DOB blacklist map=" + blacklistMap.toString());
+		LOGGER.info("Blacklist size(end):" + blacklistMap.size());
+		LOGGER.info(" --> " + blacklistMap.toString());
 		return blacklistMap;
 	}
 
 	@Override
 	public void clearBlacklist() {
-		LOGGER.info("Claer Blacklist, currently having: " + blacklistMap.size() + " items");
+		LOGGER.info("Blacklist size(start):" + blacklistMap.size());
 		blacklistMap.clear();
+		LOGGER.info("Blacklist size(end):" + blacklistMap.size());
 	}
 }

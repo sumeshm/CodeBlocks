@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,12 +55,8 @@ public class AvatarController {
 		LOGGER.info("input params: ssn=" + ssn + ", dob=" + dob);
 
 		try {
-			boolean retVal = exclusionService.validate(dob, ssn);
-			if (retVal) {
-				return new ResponseEntity<String>("TRUE", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("FALSE", HttpStatus.OK);
-			}
+			Boolean retVal = exclusionService.validate(dob, ssn);
+			return new ResponseEntity<String>("BLACKLISTED=" + retVal.toString(), HttpStatus.OK);
 		} catch (InputValidationException ex) {
 			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception ex) {
