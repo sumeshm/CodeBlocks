@@ -12,5 +12,5 @@ public interface IAvatarService {
 	 * @return URL to access Avatar
 	 * @throws InputValidationException, if Avatar is already registered OR if validation of Avatar's dob, ssn fails
 	 */
-	String createAvatar(AvatarRequest avatarRequest) throws InputValidationException;
+	public String createAvatar(AvatarRequest avatarRequest) throws InputValidationException;
 }

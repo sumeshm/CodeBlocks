@@ -1,5 +1,7 @@
 package com.interview.service;
 
+import java.util.Map;
+
 import com.interview.common.InputValidationException;
 
 public interface IExclusionService {
@@ -12,5 +14,9 @@ public interface IExclusionService {
 	 * @return true if the user could be validated and is not blacklisted, false if
 	 *         the user is blacklisted and therefore failed validation
 	 */
-	boolean validate(String dob, String ssn) throws InputValidationException;
+	public boolean validate(String dob, String ssn) throws InputValidationException;
+
+	public Map<String, String> addBlacklist(Map<String, String> blacklistMap);
+
+	public void clearBlacklist();
 }

@@ -2,6 +2,7 @@ package com.interview.service.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,11 +24,6 @@ public class AvatarValidator {
 	private static final String regex = "^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$";
 
 	public static boolean validateRequest(AvatarRequest avatarRequest) throws InputValidationException {
-		if (isAvatarDuplicate(avatarRequest.getUserName())) {
-			LOGGER.error("Avatar is already registered");
-			throw new InputValidationException("Avatar.userName", avatarRequest.getUserName(), "Avatar is already registered");
-		}
-
 		if (!isDobValid(avatarRequest.getDob())) {
 			LOGGER.error("Invalid date format for DOB");
 			throw new InputValidationException("Avatar.dob", avatarRequest.getDob(),
@@ -69,17 +65,6 @@ public class AvatarValidator {
 
 		LOGGER.info("DOB and SSN has been validated successfully");
 		return true;
-	}
-
-	private static boolean isAvatarDuplicate(String userName) {
-		boolean retVal = true;
-
-		if (null != userName && !userName.isEmpty()) {
-			// todo: check if repo has this user
-			retVal = false;
-		}
-
-		return retVal;
 	}
 
 	private static boolean isDobValid(String dob) {

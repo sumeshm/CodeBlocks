@@ -1,13 +1,17 @@
 package com.interview.rest;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +66,33 @@ public class AvatarController {
 			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (Exception ex) {
 			return new ResponseEntity<String>("Failed to validate AVATAR", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping(path = "/blacklist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> blacklist(@RequestBody Map<String, String> blacklistMap) {
+		LOGGER.info("input params: blacklistMap=" + blacklistMap);
+
+		try {
+			Map<String, String> retVal = exclusionService.addBlacklist(blacklistMap);
+			return new ResponseEntity<Map<?, ?>>(retVal, HttpStatus.OK);
+		} catch (InputValidationException ex) {
+			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception ex) {
+			return new ResponseEntity<String>("Failed to blacklist AVATARs", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping(path = "/blacklist")
+	public ResponseEntity<?> blacklist() {
+
+		try {
+			exclusionService.clearBlacklist();
+			return new ResponseEntity<String>("DELETED BLACKLIST", HttpStatus.OK);
+		} catch (InputValidationException ex) {
+			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception ex) {
+			return new ResponseEntity<String>("Failed to blacklist AVATARs", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

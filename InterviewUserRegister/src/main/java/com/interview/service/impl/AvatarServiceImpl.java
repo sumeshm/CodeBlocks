@@ -20,22 +20,42 @@ public class AvatarServiceImpl implements IAvatarService {
 
 	@Override
 	public String createAvatar(AvatarRequest avatarRequest) throws InputValidationException {
-		LOGGER.info("Avatar has been validated");
-
+		// 1. validate request data
 		AvatarValidator.validateRequest(avatarRequest);
 
+		// 2. check if already registered
+		if (isAvatarDuplicate(avatarRequest.getUserName())) {
+			LOGGER.error("Avatar is already registered");
+			throw new InputValidationException("Avatar.userName", avatarRequest.getUserName(),
+					"Avatar is already registered");
+		}
+
+		LOGGER.info("Avatar-Request has been accepted");
+
+		// 3. map request to entity
 		AvatarEntity avatarEntity = new AvatarEntity();
 		avatarEntity.setUserName(avatarRequest.getUserName());
 		avatarEntity.setPassword(avatarRequest.getPassword());
 		avatarEntity.setDob(avatarRequest.getDob());
 		avatarEntity.setSsn(avatarRequest.getSsn());
 
+		// 4. write to DB
 		AvatarEntity retVal = avatarDaoService.saveOrUpdate(avatarEntity);
 		LOGGER.info("Avatar saved to repo: " + retVal.toString());
 
-		LOGGER.info("All Avatars -> {}", avatarDaoService.getAllAvatars());
+		return "http://localhost:8080/avatars/" + retVal.getAvatarId();
+	}
 
-		//		return "http://localhost:8080/avatars/" + avatar.getUserId();
-		return "DONE";
+	private boolean isAvatarDuplicate(String userName) {
+		boolean retVal = false;
+
+		if (null != userName && !userName.isEmpty()) {
+			AvatarEntity entity = avatarDaoService.getAvatarByName(userName);
+			if (null != entity) {
+				retVal = true;
+			}
+		}
+
+		return retVal;
 	}
 }
