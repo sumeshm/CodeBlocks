@@ -14,8 +14,10 @@ public class BootApplication {
 	// 5. 
 
 	// TODO:
-	// 1. make min and max length configurable via properties file
-	// 2. 
+	// 1. unclear if an already registered avatar, should be un-registered when blacklisted
+	// 2. unclear why both SSN and DOB is needed for blacklist, since these two maintain one-is-to-one relation
+	// 3. compare DOB as Date objects instead of String
+	// 4. add security headers
 
 	public static void main(String[] args) {
 		 SpringApplication.run(BootApplication.class, args);

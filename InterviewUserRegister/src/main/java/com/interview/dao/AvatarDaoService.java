@@ -1,6 +1,5 @@
 package com.interview.dao;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -20,7 +19,8 @@ public class AvatarDaoService implements IAvatarDaoService {
 
 	// using Map as a cache for faster lookup
 	// store <Avatar.userName, Avatar.id>
-	private Map<String, Long> avatarMap = new HashMap<>();
+	@Autowired
+	private Map<String, Long> avatarMap;
 
 	@Autowired
 	private IAvatarRepository avatarRepo;

@@ -1,6 +1,5 @@
 package com.interview.service.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,7 +14,8 @@ public class ExclusionServiceImpl implements IExclusionService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExclusionServiceImpl.class);
 
-	Map<String, String> blacklistMap = new HashMap<>();
+	@Autowired
+	Map<String, String> blacklistMap;
 
 	@Autowired
 	private AvatarValidator avatarValidator;

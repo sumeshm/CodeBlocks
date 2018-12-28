@@ -33,8 +33,6 @@ public class AvatarValidator {
 	 * @throws InputValidationException
 	 */
 	public boolean validateRequest(AvatarRequest avatarRequest) throws InputValidationException {
-		LOGGER.info("############   ########### appProps=" + appProps.getDobFormat());
-		LOGGER.info("############   ########### appProps=" + appProps.getSsnRegex());
 
 		if (!isUserNameValid(avatarRequest.getUserName())) {
 			LOGGER.error("Invalid user-name format");
