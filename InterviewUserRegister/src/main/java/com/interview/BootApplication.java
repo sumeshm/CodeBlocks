@@ -18,6 +18,7 @@ public class BootApplication {
 	// 2. unclear why both SSN and DOB is needed for blacklist, since these two maintain one-is-to-one relation
 	// 3. compare DOB as Date objects instead of String
 	// 4. add security headers
+	// 5. need to use a DB, and find a way to package it along with the boot-app
 
 	public static void main(String[] args) {
 		 SpringApplication.run(BootApplication.class, args);

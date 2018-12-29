@@ -46,4 +46,9 @@ public class AppConfig {
 	public Map<String, String> blacklistMap() {
 		return new HashMap<>();
 	}
+
+	@Bean
+	public Map<String, Long> avatarMap() {
+		return new HashMap<>();
+	}
 }

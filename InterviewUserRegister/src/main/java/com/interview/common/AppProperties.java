@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 @PropertySource("classpath:app.properties")
 @Scope("singleton")
+@ConfigurationProperties
 public class AppProperties {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppProperties.class);
