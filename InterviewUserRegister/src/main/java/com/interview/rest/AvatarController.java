@@ -80,7 +80,6 @@ public class AvatarController {
 
 	@DeleteMapping(path = "/blacklist")
 	public ResponseEntity<?> blacklist() {
-
 		try {
 			exclusionService.clearBlacklist();
 			return new ResponseEntity<String>("DELETED BLACKLIST", HttpStatus.OK);
