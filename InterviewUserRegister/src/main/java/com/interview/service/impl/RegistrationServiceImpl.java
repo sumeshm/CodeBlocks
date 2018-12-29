@@ -8,13 +8,13 @@ import com.interview.common.InputValidationException;
 import com.interview.model.AvatarEntity;
 import com.interview.model.AvatarRequest;
 import com.interview.service.IAvatarDaoService;
-import com.interview.service.IAvatarService;
+import com.interview.service.IRegistrationService;
 import com.interview.service.IExclusionService;
 import com.interview.service.util.AvatarValidator;
 
-public class AvatarServiceImpl implements IAvatarService {
+public class RegistrationServiceImpl implements IRegistrationService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AvatarServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationServiceImpl.class);
 
 	@Autowired
 	private IAvatarDaoService avatarDaoService;

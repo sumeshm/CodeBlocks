@@ -19,7 +19,7 @@ import com.interview.service.IAvatarDaoService;
 import com.interview.service.IExclusionService;
 import com.interview.service.util.AvatarValidator;
 
-public class AvatarServiceImplTest {
+public class RegistrationServiceImplTest {
 
 	private AvatarRequest avatarRequest;
 
@@ -36,7 +36,7 @@ public class AvatarServiceImplTest {
 	private AvatarEntity avatarEntity;
 
 	@InjectMocks
-	private AvatarServiceImpl serviceImpl;
+	private RegistrationServiceImpl serviceImpl;
 
 	@Before
 	public void setUp() throws Exception {

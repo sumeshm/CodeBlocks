@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.interview.common.InputValidationException;
 import com.interview.model.AvatarRequest;
-import com.interview.service.IAvatarService;
+import com.interview.service.IRegistrationService;
 import com.interview.service.IExclusionService;
 
 @RestController
@@ -30,7 +30,7 @@ public class AvatarController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AvatarController.class);
 
 	@Autowired
-	private IAvatarService avatarService;
+	private IRegistrationService registrationService;
 
 	@Autowired
 	private IExclusionService exclusionService;
@@ -41,7 +41,7 @@ public class AvatarController {
 
 		String retUrl;
 		try {
-			retUrl = avatarService.createAvatar(avatarRequest);
+			retUrl = registrationService.createAvatar(avatarRequest);
 			return new ResponseEntity<String>(retUrl, HttpStatus.CREATED);
 		} catch (InputValidationException ex) {
 			return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);

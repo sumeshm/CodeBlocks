@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.interview.common.InputValidationException;
 import com.interview.model.AvatarRequest;
-import com.interview.service.IAvatarService;
+import com.interview.service.IRegistrationService;
 import com.interview.service.IExclusionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,7 +43,7 @@ public class AvatarControllerTest {
 	private MockMvc mockMvc;
 
 	@Mock
-	private IAvatarService avatarService;
+	private IRegistrationService registrationService;
 
 	@Mock
 	private IExclusionService exclusionService;
@@ -110,7 +110,7 @@ public class AvatarControllerTest {
 	@Test
 	public void test_register() {
 		String response = "response";
-		when(avatarService.createAvatar(avatarRequest)).thenReturn(response);
+		when(registrationService.createAvatar(avatarRequest)).thenReturn(response);
 
 		ResponseEntity<?> retVal = controllerMock.register(avatarRequest);
 		assertNotNull(retVal);
@@ -126,7 +126,7 @@ public class AvatarControllerTest {
 
 	@Test
 	public void test_register_InputValidationException() {
-		when(avatarService.createAvatar(avatarRequest)).thenThrow(new InputValidationException("", "", ""));
+		when(registrationService.createAvatar(avatarRequest)).thenThrow(new InputValidationException("", "", ""));
 
 		ResponseEntity<?> retVal = controllerMock.register(avatarRequest);
 		assertNotNull(retVal);
@@ -141,7 +141,7 @@ public class AvatarControllerTest {
 
 	@Test
 	public void test_register_Exception() {
-		when(avatarService.createAvatar(avatarRequest)).thenThrow(new RuntimeException(""));
+		when(registrationService.createAvatar(avatarRequest)).thenThrow(new RuntimeException(""));
 
 		ResponseEntity<?> retVal = controllerMock.register(avatarRequest);
 		assertNotNull(retVal);

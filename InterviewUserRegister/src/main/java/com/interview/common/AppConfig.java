@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Scope;
 
 import com.interview.dao.AvatarDaoService;
 import com.interview.service.IAvatarDaoService;
-import com.interview.service.IAvatarService;
+import com.interview.service.IRegistrationService;
 import com.interview.service.IExclusionService;
-import com.interview.service.impl.AvatarServiceImpl;
+import com.interview.service.impl.RegistrationServiceImpl;
 import com.interview.service.impl.ExclusionServiceImpl;
 import com.interview.service.util.AvatarValidator;
 
@@ -20,8 +20,8 @@ public class AppConfig {
 
 	@Bean
 	@Scope("singleton")
-    public IAvatarService avatarService() {
-        return new AvatarServiceImpl();
+    public IRegistrationService registrationService() {
+        return new RegistrationServiceImpl();
     }
 
 	@Bean

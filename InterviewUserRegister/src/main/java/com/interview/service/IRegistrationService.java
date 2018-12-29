@@ -3,7 +3,7 @@ package com.interview.service;
 import com.interview.common.InputValidationException;
 import com.interview.model.AvatarRequest;
 
-public interface IAvatarService {
+public interface IRegistrationService {
 
 	/**
 	 * Register the new Avatar, pending validations
