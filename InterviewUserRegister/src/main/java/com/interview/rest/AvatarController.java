@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.interview.common.InputValidationException;
 import com.interview.model.AvatarRequest;
-import com.interview.service.IRegistrationService;
 import com.interview.service.IExclusionService;
+import com.interview.service.IRegistrationService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/avatars")
@@ -36,6 +40,10 @@ public class AvatarController {
 	private IExclusionService exclusionService;
 
 	@PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	@ApiOperation(value = "Register Avatar", notes = "Register an Avatar if not blacklisted and not pre-registered")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Successful registration"),
+			@ApiResponse(code = 400, message = "Avatar details are invalid OR Already registered OR Avatar is blacklisted") })
 	public ResponseEntity<?> register(@RequestBody AvatarRequest avatarRequest) {
 		logAPI("register", avatarRequest.toString());
 
@@ -51,6 +59,10 @@ public class AvatarController {
 	}
 
 	@GetMapping(path = "/validate", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ApiOperation(value = "Validate if Blacklisted", notes = "Validate given pair(ssn, dob) is blacklisted")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "TRUE if blacklisted else FALSE"),
+			@ApiResponse(code = 400, message = "Avatar details (DOB and/or SSN) are invalid") })
 	public ResponseEntity<?> validate(@RequestParam("ssn") String ssn, @RequestParam("dob") String dob) {
 		logAPI("validate", "SSN=" + ssn + ", DOB=" + dob);
 
@@ -65,6 +77,10 @@ public class AvatarController {
 	}
 
 	@PostMapping(path = "/blacklist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Add to Blacklist", notes = "Add given map(ssn, dob) to blacklist")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Full set of blacklisted avatars (SSN-DOB pairs)"),
+			@ApiResponse(code = 400, message = "Avatar details (DOB and/or SSN) are invalid") })
 	public ResponseEntity<?> addToBlacklist(@RequestBody Map<String, String> blacklistMap) {
 		logAPI("blacklist-add", blacklistMap.toString());
 
@@ -79,6 +95,7 @@ public class AvatarController {
 	}
 
 	@DeleteMapping(path = "/blacklist")
+	@ApiOperation(value = "Clear Blacklist", notes = "Clear the complete blacklist")
 	public ResponseEntity<?> clearBlacklist() {
 		logAPI("blacklist-clear", "NIL");
 
