@@ -6,7 +6,7 @@ public class AvatarRequest {
 
 	private String password;
 
-	// ISO 8601
+	// ISO 8601 - yyyy-MM-dd'T'HH:mm:ss.SSSXXX
 	private String dob;
 
 	// http://en.wikipedia.org/wiki/Social_Security_number

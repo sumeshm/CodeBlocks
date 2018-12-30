@@ -37,7 +37,7 @@ public class AvatarController {
 
 	@PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> register(@RequestBody AvatarRequest avatarRequest) {
-		LOGGER.info("input avatar request=" + avatarRequest.toString());
+		logAPI("register", avatarRequest.toString());
 
 		String retUrl;
 		try {
@@ -52,7 +52,7 @@ public class AvatarController {
 
 	@GetMapping(path = "/validate", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> validate(@RequestParam("ssn") String ssn, @RequestParam("dob") String dob) {
-		LOGGER.info("input params: ssn=" + ssn + ", dob=" + dob);
+		logAPI("validate", "SSN=" + ssn + ", DOB=" + dob);
 
 		try {
 			Boolean retVal = exclusionService.validate(dob, ssn);
@@ -65,8 +65,8 @@ public class AvatarController {
 	}
 
 	@PostMapping(path = "/blacklist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> blacklist(@RequestBody Map<String, String> blacklistMap) {
-		LOGGER.info("input params: blacklistMap=" + blacklistMap);
+	public ResponseEntity<?> addToBlacklist(@RequestBody Map<String, String> blacklistMap) {
+		logAPI("blacklist-add", blacklistMap.toString());
 
 		try {
 			Map<String, String> retVal = exclusionService.addBlacklist(blacklistMap);
@@ -79,7 +79,9 @@ public class AvatarController {
 	}
 
 	@DeleteMapping(path = "/blacklist")
-	public ResponseEntity<?> blacklist() {
+	public ResponseEntity<?> clearBlacklist() {
+		logAPI("blacklist-clear", "NIL");
+
 		try {
 			exclusionService.clearBlacklist();
 			return new ResponseEntity<String>("DELETED BLACKLIST", HttpStatus.OK);
@@ -88,5 +90,14 @@ public class AvatarController {
 		} catch (Exception ex) {
 			return new ResponseEntity<String>("Failed to blacklist AVATARs", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	private void logAPI(String apiName, String inputRequest) {
+		LOGGER.info("");
+		LOGGER.info("-------------------------------------------------------");
+		LOGGER.info("--> API   : " + apiName);
+		LOGGER.info("--> INPUT : " + inputRequest);
+		LOGGER.info("-------------------------------------------------------");
+		LOGGER.info("");
 	}
 }

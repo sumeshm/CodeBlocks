@@ -16,7 +16,7 @@ ________________________________________________________________________________
 Scenario-1: Register happy path:
 ------------------------------------------------------------------------------------------
 curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc1", "password": "Abc1", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-11-1111" }' http://localhost:8080/avatars/register
-Expect: 200 OK, with success message
+Expect: 201 Created, with success message
 
 
 __________________________________________________________________________________________
@@ -27,33 +27,73 @@ Scenario-2: Register blacklisted:
 3. Clear blacklist
 4. Try to register, will pass
 ------------------------------------------------------------------------------------------
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "111-11-1111": "2006-12-01T10:10:40.000+05:30" }' http://localhost:8080/avatars/blacklist
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "222-22-2222": "2006-12-01T10:10:40.000+05:30" }' http://localhost:8080/avatars/blacklist
 Expect: 200 OK
 
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc1", "password": "Abc1", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-11-1111" }' http://localhost:8080/avatars/register
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc2", "password": "Abc2", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "222-22-2222" }' http://localhost:8080/avatars/register
 Expect: 400 Bad Request, with failure message about blacklisted
 
 curl -i -X DELETE 'http://localhost:8080/avatars/blacklist'
 Expect: 200 OK
 
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc1", "password": "Abc1", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-11-1111" }' http://localhost:8080/avatars/register
-Expect: 200 OK, with success message
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc2", "password": "Abc2", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "222-22-2222" }' http://localhost:8080/avatars/register
+Expect: 201 Created, with success message
 
 
 
 __________________________________________________________________________________________
 ------------------------------------------------------------------------------------------
-Scenario-2: Already Registered:
+Scenario-3: Already Registered:
 1. Blacklist ssn+dob
 2. Try to register , will fail
 3. Clear blacklist
 4. Try to register, will pass
 ------------------------------------------------------------------------------------------
 
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc1", "password": "Abc1", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-11-1111" }' http://localhost:8080/avatars/register
-Expect: 200 OK, with success message
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc3", "password": "Abc3", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "333-33-3333" }' http://localhost:8080/avatars/register
+Expect: 201 Created, with success message
 
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc1", "password": "Abc1", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-11-1111" }' http://localhost:8080/avatars/register
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc3", "password": "Abc3", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "333-33-3333" }' http://localhost:8080/avatars/register
 Expect: 400 Bad Request, with failure message about already registered
+
+
+
+__________________________________________________________________________________________
+------------------------------------------------------------------------------------------
+Scenario-4: Invalid DOB:
+------------------------------------------------------------------------------------------
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc4", "password": "Abc4", "dob": "2006-12-0110:10:40.000+05:30", "ssn": "444-44-4444" }' http://localhost:8080/avatars/register 
+Expect: 400 Bad Request, with failure message about invalid DOB
+
+
+
+__________________________________________________________________________________________
+------------------------------------------------------------------------------------------
+Scenario-5: Invalid SSN:
+------------------------------------------------------------------------------------------
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc5", "password": "Abc5", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "55-55-5555" }' http://localhost:8080/avatars/register
+Expect: 400 Bad Request, with failure message about invalid SSN
+
+
+
+__________________________________________________________________________________________
+------------------------------------------------------------------------------------------
+Scenario-6: User-Id:
+------------------------------------------------------------------------------------------
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc", "password": "Abc6", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-66-666" }' http://localhost:8080/avatars/register
+Expect: 400 Bad Request, with failure message about invalid user-id
+
+
+
+__________________________________________________________________________________________
+------------------------------------------------------------------------------------------
+Scenario-7: Password:
+------------------------------------------------------------------------------------------
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{ "userName": "abc7", "password": "Abcd", "dob": "2006-12-01T10:10:40.000+05:30", "ssn": "111-77-7777" }' http://localhost:8080/avatars/register
+Expect: 400 Bad Request, with failure message about invalid password
 
 

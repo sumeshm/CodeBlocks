@@ -214,7 +214,7 @@ public class AvatarControllerTest {
 
 		when(exclusionService.addBlacklist(ssnDobMap)).thenReturn(ssnDobMap);
 
-		ResponseEntity<?> retVal = controllerMock.blacklist(ssnDobMap);
+		ResponseEntity<?> retVal = controllerMock.addToBlacklist(ssnDobMap);
 		assertNotNull(retVal);
 
 		HttpStatus httpStatus = retVal.getStatusCode();
@@ -234,7 +234,7 @@ public class AvatarControllerTest {
 		ssnDobMap.put(ssn, dob);
 		when(exclusionService.addBlacklist(ssnDobMap)).thenThrow(new InputValidationException("", "", ""));
 
-		ResponseEntity<?> retVal = controllerMock.blacklist(ssnDobMap);
+		ResponseEntity<?> retVal = controllerMock.addToBlacklist(ssnDobMap);
 		assertNotNull(retVal);
 
 		HttpStatus httpStatus = retVal.getStatusCode();
@@ -253,7 +253,7 @@ public class AvatarControllerTest {
 		ssnDobMap.put(ssn, dob);
 		when(exclusionService.addBlacklist(ssnDobMap)).thenThrow(new RuntimeException(""));
 
-		ResponseEntity<?> retVal = controllerMock.blacklist(ssnDobMap);
+		ResponseEntity<?> retVal = controllerMock.addToBlacklist(ssnDobMap);
 		assertNotNull(retVal);
 
 		HttpStatus httpStatus = retVal.getStatusCode();
@@ -266,7 +266,7 @@ public class AvatarControllerTest {
 
 	@Test
 	public void test_blacklist() {
-		ResponseEntity<?> retVal = controllerMock.blacklist();
+		ResponseEntity<?> retVal = controllerMock.clearBlacklist();
 		assertNotNull(retVal);
 
 		HttpStatus httpStatus = retVal.getStatusCode();

@@ -16,7 +16,16 @@ public interface IExclusionService {
 	 */
 	public boolean validate(String dob, String ssn) throws InputValidationException;
 
+	/**
+	 * Add given SSN-DOM pairs to blacklist.
+	 * 
+	 * @param blacklistMap
+	 * @return Complete 'list' of blacklisted SSN-DOB pairs
+	 */
 	public Map<String, String> addBlacklist(Map<String, String> blacklistMap);
 
+	/**
+	 * Clear all times from blacklist
+	 */
 	public void clearBlacklist();
 }
