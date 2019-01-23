@@ -1,5 +1,6 @@
 package com.learn.spring.rest;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
@@ -7,6 +8,7 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.spring.model.CarPojo;
+import com.learn.spring.model.HealthPojo;
 import com.learn.spring.service.ICarFactoryService;
 
 @RestController
@@ -98,5 +101,23 @@ public class ServletController {
 		} else {
 			return new ResponseEntity<String>("Car NOT Found", HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@GetMapping(path = "/car/health", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HealthPojo> getHealth() {
+		int errorCode = 0;
+		LocalTime now = LocalTime.now();
+		if (now.getSecond() % 2 != 0) {
+			errorCode = 1;
+		}
+
+		HealthPojo pojo = new HealthPojo();
+		if (errorCode != 0) {
+			pojo.addToMap("Car", true);
+		} else {
+			pojo.addToMap("Car", false);
+		}
+
+		return new ResponseEntity<HealthPojo>(pojo, HttpStatus.OK);
 	}
 }
